@@ -1,5 +1,4 @@
 #!/bin/bash
-npm i
 git branch -D gh-pages
 git checkout -b gh-pages
 npm run build 
@@ -10,7 +9,9 @@ for file in $(ls -a);do
 		echo “File $file deleted.”
 	fi;
 done;
-git add .
+git config --global user.name "Travis CI"
+git config --global user.email "d.kishore@thoughtworks.com"
+git add -A
 git commit -m “Adding build one”
-git remote add https://github.com/Tw-Bootcamp-Avengers/cricket-scorer-app
+git remote add origin https://github.com/Tw-Bootcamp-Avengers/cricket-scorer-app
 git push origin gh-pages
