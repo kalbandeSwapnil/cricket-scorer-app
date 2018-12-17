@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {changeName} from './PlayerActions'
+import {actions} from './PlayerActions'
 import {connect} from 'react-redux';
 
 
@@ -22,13 +22,15 @@ class CricketGame extends Component {
 
 export const mapStateToProps = (state) => {
     return {
-            name: state.playerReducer.lastName
+            lastName: state.playerReducer.lastName
           }
     }
     
 export const  mapDispatchToProps = (dispatch) => {
         return {
-            changeName : changeName(dispatch)
+            changeName : function() {
+                dispatch(actions.changeName())
+            }
           }
     }  
 

@@ -6,11 +6,11 @@ let initialState = {
 export const playerReducer = (state = initialState, action) => {
 
     switch(action.type) {
-        case "UPDATE" :{
+        case "UPDATE" :
+        debugger;
         return {
             ...state,
-            lastName : state.lastName = action.lastName
-        }
+            lastName : action.payload
         }
         default:
         return state;

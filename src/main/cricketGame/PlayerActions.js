@@ -1,8 +1,9 @@
 
-export const changeName = (dispatch) => {
-    let lastName = "swapnil"
-    dispatch({
-      type: "UPDATE",
-      lastName
-    })
+const changeName = () => ({
+        type: "UPDATE",
+        payload: 'swapnil'
+});
+
+export const actions = {
+  changeName
 }
