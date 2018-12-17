@@ -10,9 +10,8 @@ for file in $(ls -a);do
 		echo “File $file deleted.”
 	fi;
 done;
-git config --global user.name "kishore-devaraj"
+git config --global user.name "Kishore Devaraj"
 git config --global user.email "kishoregrylls@gmail.com"
 git add -A
-git commit -m “Adding build one”
-git remote add origin https://github.com/Tw-Bootcamp-Avengers/cricket-scorer-app
+git commit -m "Adding build one"
 git push origin gh-pages
