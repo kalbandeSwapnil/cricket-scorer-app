@@ -10,4 +10,4 @@ for file in $(ls -a);do
 		echo “File $file deleted.”
 	fi;
 done;
-git commit -a -m “Adding build @$(date)”
+git commit -m -a “Adding build @$(date)”
