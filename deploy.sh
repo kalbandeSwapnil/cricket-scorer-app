@@ -11,4 +11,6 @@ for file in $(ls -a);do
 	fi;
 done;
 git add .
-git commit -m “Adding build at $(date)”
+git commit -m “Adding build one”
+git remote add https://github.com/Tw-Bootcamp-Avengers/cricket-scorer-app
+git push origin gh-pages
