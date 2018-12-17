@@ -9,4 +9,4 @@ deploy:
   github-token: 987e286c243514e0a536e4724725f8ede7c21c5e
   keep-history: true
   on:
-    branch: gh-pages
+    branch: master
