@@ -13,7 +13,7 @@ export default class TeamScore extends React.Component {
 
 
     render() {
-        return <div style={MainViewStyle}>
+        return <div className="teamScoreFull" style={MainViewStyle}>
             <div className="teamName" style={TeamRunStyle}>
             <div style ={this.state.isBold ? teamBoldStyle : teamNormalStyle}>{this.props.teamName}</div>
             </div>
@@ -22,7 +22,7 @@ export default class TeamScore extends React.Component {
             <div className="teamScore" style ={this.state.isBold ? scoreBoldStyle : scoreNormalStyle}>{this.props.score}/{this.props.wickets}</div>
             <div className="inStatic" style ={this.state.isBold ? teamBoldStyle : teamNormalStyle}> &nbsp; in &nbsp;</div>
                 <div className="currentBallAndOver" style={this.state.isBold ? scoreBoldStyle : scoreNormalStyle}>
-                    {this.props.currentOver === 0 ? '': this.props.currentOver -1 + '.'}{this.props.currentBall === 0 ? '' : this.props.currentBall + '/'}{this.props.totalOver}</div>
+                    {this.props.currentOver === 0 ? this.props.currentOver : this.props.currentOver - 1 }{this.props.currentBall === 0 ? '' : '.' + this.props.currentBall + '/'}{this.props.totalOver}</div>
 
             </div>
 
