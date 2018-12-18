@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
 import {actions} from  './RunsActions'
 import {connect} from 'react-redux';
-import {ButtonToolbar } from 'react-bootstrap'
-import { Button } from 'react-bootstrap';
 
 class Runs extends Component {
     constructor(props){
         super(props);
         this.state ={
-            currentRun : 0
+            currentRun : 0,
+            bowlIndex : 0
         }
     }
 
-    storeRun(run){
+    storeRun(run) {
         debugger;
         this.setState({
-            currentRun : parseInt(run.target.value)
+            currentRun: parseInt(run.target.value)
         })
+        if (this.state.bowlIndex < 6) {
+            this.setState({
+                bowlIndex: this.state.bowlIndex + 1
+            })
+        } else {
+            this.setState({
+                bowlIndex: 0
+            })
+        }
     }
 
     render() {
@@ -31,7 +39,12 @@ class Runs extends Component {
 
                {runs}
                <br></br>
-               <button className="button-next"  onClick = {() => this.props.recordRuns(this.state.currentRun)}>Next Ball</button>
+               <button className="button-next"  onClick = {() => {
+                   this.props.recordRuns(this.state.currentRun)
+                   this.props.recordBalls("Swapnil", this.state.bowlIndex)
+               }}>
+                   Next Ball
+               </button>
            </div>
        )
     }
@@ -47,6 +60,9 @@ export const  mapDispatchToProps = (dispatch) => {
     return {
         recordRuns : function(run) {
             dispatch(actions.recordRuns(run))
+        },
+        recordBalls : function(name, bowlIndex) {
+            dispatch(actions.recordBalls(name, bowlIndex))
         }
     }
 }
