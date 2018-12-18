@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {changeName} from './PlayerActions'
 import {connect} from 'react-redux';
+import TeamScore from "../scoreBoard/TeamScore";
 
 
 class CricketGame extends Component {
@@ -15,6 +16,7 @@ class CricketGame extends Component {
         <div className="cricket-game">
             <h1>Hello{this.props.lastName}</h1>
             <button onClick = {this.changeName.bind(this)}> Change </button>
+            <TeamScore teamName="1" score="100" wickets="6" currentOver="10" currentBall="2" totalOver="20"/>
         </div>
         );
     }
