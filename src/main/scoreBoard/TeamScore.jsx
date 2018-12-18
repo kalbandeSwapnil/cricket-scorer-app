@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 
 
 export default class TeamScore extends React.Component {
