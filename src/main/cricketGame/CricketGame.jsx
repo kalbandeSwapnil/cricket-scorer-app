@@ -14,8 +14,8 @@ class CricketGame extends Component {
     render() {
         return (
         <div className="cricket-game">
-            <TeamScore teamName=" Team 1" score="100" wickets="6" currentOver="10" currentBall="2" totalOver="20"/>
-            <TeamScore teamName=" Team 2" score="150" wickets="6" currentOver="0" currentBall="0" totalOver="20"/>
+            <TeamScore teamName=" Team 1" score={100} wickets={6} currentOver={10} currentBall={2} totalOver={20}/>
+            <TeamScore teamName=" Team 2" score={150} wickets={6} currentOver={0} currentBall={0} totalOver={20}/>
         </div>
         );
     }
