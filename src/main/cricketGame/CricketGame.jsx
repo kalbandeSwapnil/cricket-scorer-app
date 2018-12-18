@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import {actions} from './PlayerActions'
 import {connect} from 'react-redux';
-import  TeamScore from '../scoreBoard/TeamScore'
-
+import  {TeamScoreContainer} from '../scoreBoard/TeamScore'
+import {OverStatusContainer} from '../overStatus/OverStatus'
+import  Runs from '../runs/Runs'
+import './CricketGame.css'
 
 class CricketGame extends Component {
 
-    changeName () {
-        this.props.changeName();
-    }
 
     render() {
         return (
-        <div className="cricket-game">
-            <TeamScore teamName=" Team 1" score={100} wickets={6} currentOver={10} currentBall={2} totalOver={20}/>
-            <TeamScore teamName=" Team 2" score={150} wickets={6} currentOver={2} currentBall={2} totalOver={20}/>
+        <div className="container">
+            <TeamScoreContainer />
+            <OverStatusContainer />
+            <Runs/>
         </div>
         );
     }

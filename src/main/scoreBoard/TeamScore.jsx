@@ -1,36 +1,53 @@
-import React  from 'react';
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 
-export default class TeamScore extends React.Component {
+ export const TeamScore = (props) => {
+     let isBold = true;
+        return (
+            <div >
+                <div style={MainViewStyle}>
+                    <div className="teamName" style={TeamRunStyle}>
+                    <div style ={isBold ? teamBoldStyle : teamNormalStyle}>{props.team1.teamName}</div>
+                    </div>
+                    <div style={OverViewStyle}>
+                    <div className="teamScore" style ={isBold ? scoreBoldStyle : scoreNormalStyle}>{props.team1.runs}/{props.team1.wickets}</div>
+                    <div className="inStatic" style ={isBold ? teamBoldStyle : teamNormalStyle}> &nbsp; in &nbsp;</div>
+                        <div className="currentBallAndOver" style={isBold ? scoreBoldStyle : scoreNormalStyle}>
+                            {props.team1.currentOver === 0 ? '': props.team1.currentOver -1 + '.'}{props.team1.currentBall === 0 ? '' : props.team1.currentBall + '/'}{props.team1.totalOver}
+                        </div>
+                    </div>
+                </div>
 
-    constructor(props){
-        super(props)
-        this.state = {
-            isBold: true,
-        };
-
-    }
-
-
-    render() {
-        return <div className="teamScoreFull" style={MainViewStyle}>
-            <div className="teamName" style={TeamRunStyle}>
-            <div style ={this.state.isBold ? teamBoldStyle : teamNormalStyle}>{this.props.teamName}</div>
+                <div style={MainViewStyle}>
+                    <div className="teamName" style={TeamRunStyle}>
+                        <div style ={isBold ? teamBoldStyle : teamNormalStyle}>{props.team2.teamName}</div>
+                    </div>
+                    <div style={OverViewStyle}>
+                        <div className="teamScore" style ={isBold ? scoreBoldStyle : scoreNormalStyle}>{props.team2.runs}/{props.team2.wickets}</div>
+                        <div className="inStatic" style ={isBold ? teamBoldStyle : teamNormalStyle}> &nbsp; in &nbsp;</div>
+                        <div className="currentBallAndOver" style={isBold ? scoreBoldStyle : scoreNormalStyle}>
+                            {props.team2.currentOver === 0 ? '': props.team2.currentOver -1 + '.'}{props.team2.currentBall === 0 ? '' : props.team2.currentBall + '/'}{props.team2.totalOver}
+                        </div>
+                    </div>
+                </div>
             </div>
+        )
+}
 
-            <div style={OverViewStyle}>
-            <div className="teamScore" style ={this.state.isBold ? scoreBoldStyle : scoreNormalStyle}>{this.props.score}/{this.props.wickets}</div>
-            <div className="inStatic" style ={this.state.isBold ? teamBoldStyle : teamNormalStyle}> &nbsp; in &nbsp;</div>
-                <div className="currentBallAndOver" style={this.state.isBold ? scoreBoldStyle : scoreNormalStyle}>
-                    {this.props.currentOver === 0 ? this.props.currentOver : this.props.currentOver - 1 }{this.props.currentBall === 0 ? '/' : '.' + this.props.currentBall + '/'}{this.props.totalOver}</div>
-
-            </div>
-
-
-
-        </div>
+export const mapStateToProps = (state) => {
+    return {
+        team1 : state.teamScore.team1,
+        team2 : state.teamScore.team2
     }
 }
+
+export const  mapDispatchToProps = (dispatch) => {
+    return {
+    }
+}
+
+export const TeamScoreContainer =  connect(mapStateToProps, mapDispatchToProps)(TeamScore);
 
 const teamBoldStyle = {
     fontWeight: 'bold',
@@ -75,7 +92,7 @@ const MainViewStyle = {
     flexDirection: 'row',
     display: 'flex',
     margin: '20px',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
 
 };
 
