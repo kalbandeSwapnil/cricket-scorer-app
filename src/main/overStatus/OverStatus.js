@@ -95,9 +95,7 @@ const OverStatus = () => {
 }
 
 OverStatus.protoTypes = {
-    Balls: PropTypes.array,
-    Balls: PropTypes.arrayOf(PropTypes.object),
-    Balls: PropTypes.any.isRequired
+    Balls: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default OverStatus
