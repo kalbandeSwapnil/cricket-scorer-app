@@ -40,7 +40,7 @@ it('should render team score', () => {
     expect(s).toEqual("100/6");
 
     let string = wrapper.find('.currentBallAndOver').at(0).text();
-    expect(string).toEqual("8.2/10");
+    expect(string).toEqual("9.2/10");
 
 
 });

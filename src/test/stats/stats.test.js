@@ -109,7 +109,7 @@ test('/ path should redirect to CricketGame Component', () => {
     )
 
     const wrapperComponent = mount(<TeamScore team1={state.team1} team2={state.team2} />)
-    expect(wrapperComponent.find('.team1-container').text()).toEqual("Team 1100/6 in 8.2/20")
-    expect(wrapperComponent.find('.team2-container').text()).toEqual("Team 2150/8 in 20")
+    expect(wrapperComponent.find('.team1-container').text()).toEqual("Team 1100/6 in 9.2/20")
+    expect(wrapperComponent.find('.team2-container').text()).toEqual("Team 2150/8 in 0.0/20")
 })
 
