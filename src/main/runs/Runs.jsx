@@ -38,20 +38,20 @@ class Runs extends Component {
                 this.setState({
                     ballIndex: this.state.ballIndex + 1
                 }, () => {
-                    this.recordBalls("Swapnil", this.state.ballIndex, this.state.currentRun, this.state.extraType);
+                    this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
                     this.recordRuns(this.state.currentRun)
                 })
             } else {
                 this.setState({
                     ballIndex: 0
                 }, () => {
-                    this.recordBalls("Swapnil", this.state.ballIndex, this.state.currentRun, this.state.extraType);
+                    this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
                     this.recordRuns(this.state.currentRun)
                 })
             }
         } else if(this.state.extraType === 'Wd' || this.state.extraType === 'Nb') {
             this.recordRuns(this.state.currentRun)
-            this.recordBalls("Swapnil", this.state.ballIndex, this.state.currentRun, this.state.extraType);
+            this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
         }
         this.setState({
             extraType: ''
@@ -131,8 +131,6 @@ class Runs extends Component {
                <br></br>
                <button className="button-next" disabled={this.state.nextBowler === null ? true : false}  onClick = {() => {
                    this.updateBallCount()
-                   this.recordRuns(this.state.currentRun)
-                   this.props.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType)
                }}>
                    Next Ball
                </button>
