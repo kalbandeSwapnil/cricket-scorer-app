@@ -4,10 +4,12 @@ const recordRuns = (run) => ({
     run
 });
 
-const recordBalls = (name, bowlIndex) => ({
+const recordBalls = (name, ballIndex, run, extraType) => ({
     type: "UPDATE_BALLS",
     name,
-    bowlIndex
+    ballIndex,
+    run,
+    extraType
 
 });
 
