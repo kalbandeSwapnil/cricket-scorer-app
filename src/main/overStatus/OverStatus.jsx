@@ -81,17 +81,17 @@ import  './OverStatus.css'
 // }
 
 export const OverStatus = (props) => {
-    let overHistory = [];
-    props.overs.currentOverPlayed.forEach(ball => {
-        overHistory.push(ball['ballType'])});
+    // let overHistory = [];
+    // props.overs.currentOverPlayed.forEach(ball => {
+    //     overHistory.push(ball['ballType'])});
     return (
         <div className="overStatus-container">
             <div className="overStatus-main">
                 <div>This Over</div>
-                <div className="over-history">{overHistory}</div>
+                {/* <div className="over-history">{overHistory}</div> */}
             </div>
             <div>
-                <b className ="bowler-name"> Bowler : {props.overs.currentOverPlayed.length ? props.overs.currentOverPlayed[props.overs.currentOverPlayed.length-1].bowler : ''}</b>
+                {/* <b className ="bowler-name"> Bowler : {props.overs.currentOverPlayed.length ? props.overs.currentOverPlayed[0].bowler : ''}</b> */}
             </div>
             <div>
             </div>

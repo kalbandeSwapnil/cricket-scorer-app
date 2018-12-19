@@ -16,6 +16,8 @@ class Runs extends Component {
             nextBowler : null,
             isDropdownVisible : false
         }
+        this.recordRuns = this.recordRuns.bind(this)
+        this.recordBalls = this.props.recordBalls.bind(this)
     }
 
     storeRun(run) {
@@ -31,18 +33,29 @@ class Runs extends Component {
     }
 
     updateBallCount(){
-        debugger;
-        if(this.state.extraType === 'B' && this.state.extraType === 'Lb' || this.state.extraType ===''){
+        if(this.state.extraType === 'B' || this.state.extraType === 'Lb' || this.state.extraType ===''){
             if (this.state.ballIndex < 6) {
                 this.setState({
                     ballIndex: this.state.ballIndex + 1
+                }, () => {
+                    this.recordBalls("Swapnil", this.state.ballIndex, this.state.currentRun, this.state.extraType);
+                    this.recordRuns(this.state.currentRun)
                 })
             } else {
                 this.setState({
                     ballIndex: 0
+                }, () => {
+                    this.recordBalls("Swapnil", this.state.ballIndex, this.state.currentRun, this.state.extraType);
+                    this.recordRuns(this.state.currentRun)
                 })
             }
+        } else if(this.state.extraType === 'Wd' || this.state.extraType === 'Nb') {
+            this.recordRuns(this.state.currentRun)
+            this.recordBalls("Swapnil", this.state.ballIndex, this.state.currentRun, this.state.extraType);
         }
+        this.setState({
+            extraType: ''
+        })
     }
 
     recordRuns(){
@@ -59,6 +72,8 @@ class Runs extends Component {
                 break;
             case 'Nb':
                 runs = 1
+                break;
+            default:
                 break;
         }
         this.setState({
@@ -93,9 +108,9 @@ class Runs extends Component {
     }
     render() {
         let runs = [];
-        for(let index = 0 ;index< 8; index++){
+        for(let index =0 ;index< 8; index++){
             runs.push(
-                <button key={index} className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
+                <button className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
             )
         }
         let extras = ["Wd", "Nb", "B", "Lb"]
