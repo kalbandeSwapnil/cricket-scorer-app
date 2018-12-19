@@ -91,7 +91,7 @@ export const OverStatus = (props) => {
                 <div className="over-history">{overHistory}</div>
             </div>
             <div>
-                <b className ="bowler-name"> Bowler : {props.overs.currentOverPlayed.length ? props.overs.currentOverPlayed[0].bowler : ''}</b>
+                <b className ="bowler-name"> Bowler : {props.overs.currentOverPlayed.length ? props.overs.currentOverPlayed[props.overs.currentOverPlayed.length-1].bowler : ''}</b>
             </div>
             <div>
             </div>

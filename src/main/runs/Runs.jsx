@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {actions} from  './RunsActions'
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Dropdown from 'react-dropdown';
+import './runs.css';
 
 class Runs extends Component {
     constructor(props){
@@ -9,7 +11,9 @@ class Runs extends Component {
         this.state ={
             currentRun : 0,
             ballIndex : 0,
-            extraType: ''
+            extraType: '',
+            bowlerOptions : [],
+            nextBowler : null
         }
     }
 
@@ -69,6 +73,19 @@ class Runs extends Component {
 
     }
 
+    getAvailableBowlers(){
+        this.setState({
+            bowlerOptions : ['Brett Lee', 'Glenn McGrath', 'Shane Warne']
+        })
+    }
+
+
+    updateCurrentBowler(player){
+        console.log(player.value)
+        this.setState({
+            nextBowler : player.value
+        })
+    }
     render() {
         let runs = [];
         for(let index = 0 ;index< 8; index++){
@@ -78,8 +95,10 @@ class Runs extends Component {
         }
         let extras = ["Wd", "Nb", "B", "Lb"]
             let showExtras = extras.map(extra =>
-            <button className = "button-number" value = { extra } onClick = { this.storeExtra.bind(this) } > { extra }</button >
+            <button key={extra} className = "button-number" value = { extra } onClick = { this.storeExtra.bind(this) } > { extra }</button >
         )
+        
+        const defaultOption = ""
 
        return (
            <div className="runs">
@@ -87,16 +106,24 @@ class Runs extends Component {
                {runs}
                <br></br>
                
-               <h1>Extra</h1>
+                   <h1>Extra</h1>
                {showExtras}
                <button className="button-next"  onClick = {() => {
                    this.updateBallCount()
                    this.recordRuns(this.state.currentRun)
-                   this.props.recordBalls("Swapnil", this.state.ballIndex, this.state.currentRun, this.state.extraType)
+                   this.props.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType)
                }}>
                    Next Ball
                </button>
                <div className="button-stats"><Link to="/stats">Stats</Link></div>
+
+               <button className="button-next" onClick = { () => {
+                   this.getAvailableBowlers()
+               }}>Change Bowler</button>
+                <div className="dropdown">
+                <Dropdown className="button-number" options={this.state.bowlerOptions} onChange={this.updateCurrentBowler.bind(this)}
+                value={this.state.nextBowler} placeholder="Select next bowler" />
+                </div>
            </div>
        )
     }
