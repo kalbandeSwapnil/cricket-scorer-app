@@ -7,8 +7,6 @@ import  Runs from '../runs/Runs'
 import './CricketGame.css'
 
 class CricketGame extends Component {
-
-
     render() {
         return (
         <div className="container">

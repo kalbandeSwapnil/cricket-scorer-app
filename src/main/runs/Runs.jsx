@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {actions} from  './RunsActions'
 import {connect} from 'react-redux';
+import { Link } from 'react-router-dom'
 
 class Runs extends Component {
     constructor(props){
@@ -29,9 +30,9 @@ class Runs extends Component {
 
     render() {
         let runs = [];
-        for(let index =0 ;index< 8; index++){
+        for(let index = 0 ;index< 8; index++){
             runs.push(
-                <button className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
+                <button key={index} className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
             )
         }
        return (
@@ -45,6 +46,7 @@ class Runs extends Component {
                }}>
                    Next Ball
                </button>
+               <div className="button-stats"><Link to="/stats">Stats</Link></div>
            </div>
        )
     }

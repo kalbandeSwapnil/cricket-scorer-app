@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 
 
@@ -91,7 +91,6 @@ const scoreNormalStyle = {
 const MainViewStyle = {
     flexDirection: 'row',
     display: 'flex',
-    margin: '20px',
     justifyContent: 'space-between'
 
 };
