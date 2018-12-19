@@ -7,7 +7,11 @@ class Runs extends Component {
         super(props);
         this.state ={
             currentRun : 0,
-            bowlIndex : 0
+            bowlIndex : 0,
+            extras : {
+                type : null,
+                runs : 0
+            }
         }
     }
 
@@ -27,6 +31,18 @@ class Runs extends Component {
         }
     }
 
+    storeExtra(extra) {
+        debugger;
+        this.setState({
+            bowlIndex : this.state.bowlIndex-1,
+            currentRun: 1,
+            extras : {
+                type : extra.target.value,
+                runs : 1
+            }
+        })
+    }
+
     render() {
         let runs = [];
         for(let index =0 ;index< 8; index++){
@@ -34,10 +50,18 @@ class Runs extends Component {
                 <button className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
             )
         }
+        // Render extras
+        let extras = ["Wd", "Nb", "B", "Lb"]
+        let showExtras = extras.map(extra => {
+            return <button className="button-number" value={extra} onClick={this.storeExtra.bind(this)}>{extra}</button>
+        })
+
        return (
            <div className="runs">
 
                {runs}
+               <br></br>
+               {showExtras}
                <br></br>
                <button className="button-next"  onClick = {() => {
                    this.props.recordRuns(this.state.currentRun)
