@@ -13,7 +13,8 @@ class Runs extends Component {
             ballIndex : 0,
             extraType: '',
             bowlerOptions : [],
-            nextBowler : null
+            nextBowler : null,
+            isDropdownVisible : false
         }
     }
 
@@ -73,18 +74,22 @@ class Runs extends Component {
 
     }
 
-    getAvailableBowlers(){
+    getAvailableBowlers(event){
         this.setState({
-            bowlerOptions : ['Brett Lee', 'Glenn McGrath', 'Shane Warne']
-        })
+            bowlerOptions : ['Brett Lee', 'Glenn McGrath', 'Shane Warne'],
+            isDropdownVisible : true
+        });
+        
     }
 
 
     updateCurrentBowler(player){
         console.log(player.value)
         this.setState({
-            nextBowler : player.value
+            nextBowler : player.value,
+            isDropdownVisible : false
         })
+        
     }
     render() {
         let runs = [];
@@ -108,7 +113,8 @@ class Runs extends Component {
                
                    <h1>Extra</h1>
                {showExtras}
-               <button className="button-next"  onClick = {() => {
+               <br></br>
+               <button className="button-next" disabled={this.state.nextBowler === null ? true : false}  onClick = {() => {
                    this.updateBallCount()
                    this.recordRuns(this.state.currentRun)
                    this.props.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType)
@@ -120,10 +126,15 @@ class Runs extends Component {
                <button className="button-next" onClick = { () => {
                    this.getAvailableBowlers()
                }}>Change Bowler</button>
-                <div className="dropdown">
+               <p className={this.state.nextBowler === null? 'hidden': 'p'}>Selected Bowler : {this.state.nextBowler}</p>
+
+               
+                <div className={this.state.isDropdownVisible ? 'dropdown' : 'hidden'}>
+
                 <Dropdown className="button-number" options={this.state.bowlerOptions} onChange={this.updateCurrentBowler.bind(this)}
                 value={this.state.nextBowler} placeholder="Select next bowler" />
                 </div>
+                
            </div>
        )
     }
