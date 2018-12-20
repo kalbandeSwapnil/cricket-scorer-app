@@ -52,7 +52,7 @@ const groupPlayerDetails = (overs, keyGetter) => {
 
 
 
-const computeBattingDetails = (grouped, player) => {
+export const computeBattingDetails = (grouped, player) => {
     return {
         runs: grouped.get(player.name).reduce((sum, ball) => {
             return sum + ball.runs
@@ -69,7 +69,7 @@ const computeBattingDetails = (grouped, player) => {
     }
 }
 
-const computeBowlingDetails = (name, overs) => {
+export const computeBowlingDetails = (name, overs) => {
     return {
         overs: overs.filter((over) => {
             let updatedOver = over.filter(ball => {

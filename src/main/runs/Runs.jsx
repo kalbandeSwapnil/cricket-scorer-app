@@ -30,12 +30,16 @@ class Runs extends Component {
             this.outButton.className = this.outButton.className.replace(' active','')
             this.setState({
                 wicket: false
+            }, () => {
+                this.props.toggleTeams() // This will check for innings end and update the teams.
             })
 
         }else {
             this.outButton.className = this.outButton.className + ' active'
             this.setState({
                 wicket: true
+            }, () => {
+                this.props.toggleTeams() // This will check for innings end and update the teams.
             })
         }
 
@@ -88,12 +92,15 @@ class Runs extends Component {
                             oldBowler : this.state.currentBowler,
                             currentBowler: null,
                             ballIndex : 0
+                        }, () => {
+                            this.props.toggleTeams() // This will check for innings end and update the teams.
                         })
                     }
                 })
             }
         } else if(this.state.extraType === 'Wd' || this.state.extraType === 'Nb') {
             this.recordRuns(this.state.currentRun)
+            
             this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType,this.state.wicket );
             this.setState({extraType: '',
             wicket: false})
@@ -229,6 +236,9 @@ export const  mapDispatchToProps = (dispatch) => {
         },
         recordBalls : function(name, ballIndex, run ,extraType,wicket) {
             dispatch(actions.recordBalls(name, ballIndex, run, extraType, wicket))
+        },
+        toggleTeams : function (){
+            dispatch(actions.toggleTeams())
         }
     }
 }
