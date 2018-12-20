@@ -12,7 +12,7 @@ let initialState = {
         wickets: 0,
         currentBall: 0,
         currentOver: 0,
-        totalOver: 2,
+        totalOver: 6,
         overs : [],
         isBatting : true,
         isBowling : false,
@@ -29,7 +29,7 @@ let initialState = {
         wickets: 0,
         currentBall: 0,
         currentOver: 0,
-        totalOver: 2,
+        totalOver: 6,
         overs: [],
         isBatting : false,
         isBowling : true,
@@ -47,27 +47,18 @@ let initialState = {
 export const teamScore = (state = initialState, action) => {
     let bowlingTeam  = state.team1.isBowling ? "team1" : "team2"
     let battingTeam  = state.team1.isBatting ? "team1" : "team2"
-    let changeStrike = action.run ? true : false
+    let changeStrike = action.runs%2 ? true : false
+
     switch(action.type) {
         case "UPDATE_RUNS" :
-            let newStateWithRuns = {
+            return {
                 ...state,
                 [battingTeam] : {...state[battingTeam], runs: state[battingTeam].runs + action.run}
             }
 
-             if(changeStrike === true){
-                return {
-                 ...newStateWithRuns,
-                     [battingTeam]: {...newStateWithRuns[battingTeam], striker: newStateWithRuns[battingTeam].nonStriker , nonStriker: newStateWithRuns[battingTeam].striker }
-                 }
-
-                        }else {
-                 return newStateWithRuns;
-             }
-
         case "UPDATE_BALLS" :
             let newState = state;
-            let ball = createNewBall(action.name, action.runs, action.extraType,action.wicket,action.batsmandName,action.batsmanDisplayName,action.bowlerDisplayName)
+            let ball = createNewBall(action.name, action.runs, action.extraType,action.wicket,action.batsmanName,action.batsmanDisplayName,action.bowlerDisplayName)
             let newOverList = pushOverToOverList(ball, state.team1.overs, action.ballIndex)
 
 
@@ -77,6 +68,7 @@ export const teamScore = (state = initialState, action) => {
                     [battingTeam]: {...state[battingTeam], currentOver: state[battingTeam].currentOver+1, currentBall : 0, overs : newOverList },
                     [bowlingTeam]: {...state[bowlingTeam], oldBowler : state[bowlingTeam].currentBowler , currentBowler :null }
                 }
+                changeStrike = true;
             }
             else if(action.extraType === 'Lb'  || action.extraType === 'B' || action.extraType ==='') {
                 newState = {
@@ -89,12 +81,20 @@ export const teamScore = (state = initialState, action) => {
                     [battingTeam]: {...state[battingTeam], overs : newOverList  }
                 }
             }
+            if(changeStrike === true){
+                newState = {
+                    ...newState,
+                    [battingTeam]: {...newState[battingTeam], striker: newState[battingTeam].nonStriker , nonStriker: newState[battingTeam].striker }
+                }
+
+            }
             if (action.wicket === true) {
                 return {
                     ...newState,
                     [battingTeam]: {...newState[battingTeam], wickets: newState[battingTeam].wickets+1}
                 }
             }
+
             return newState;
 
             case "UPDATE_CURRENT_BOWLER" :
