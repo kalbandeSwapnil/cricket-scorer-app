@@ -22,12 +22,24 @@ class Runs extends Component {
         this.recordBalls = this.props.recordBalls.bind(this)
         this.previousActiveButton = null
         this.previousActiveExtraButton = null
+        this.outButton = null;
     }
-    recordWickets(wicket) {
-        console.log("******" + wicket)
-        this.setState({
-            wicket: true
-        })
+    recordWickets(e) {
+        this.outButton =e.target
+        if(this.outButton.className.includes(' active')) {
+            this.outButton.className = this.outButton.className.replace(' active','')
+            this.setState({
+                wicket: false
+            })
+
+        }else {
+            this.outButton.className = this.outButton.className + ' active'
+            this.setState({
+                wicket: true
+            })
+
+        }
+
     }
     storeRun(e) {
         this.currentSelectedButton = e.target
@@ -57,8 +69,10 @@ class Runs extends Component {
     updateBallCount(){
         if(this.previousActiveButton !== null) this.previousActiveButton.className = 'button-number'
         if(this.previousActiveExtraButton !== null) this.previousActiveExtraButton.className = 'button-number'
+        this.outButton.className='button-number'
         this.previousActiveButton = null
         this.previousActiveExtraButton = null
+        this.outButton.className='button-number'
         if(this.state.extraType === 'B' || this.state.extraType === 'Lb' || this.state.extraType ===''){
             if (this.state.ballIndex < 6) {
                 this.setState({
