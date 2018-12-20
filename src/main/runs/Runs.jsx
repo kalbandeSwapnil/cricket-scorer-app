@@ -8,55 +8,76 @@ import './runs.css';
 class Runs extends Component {
     constructor(props){
         super(props);
-        this.state ={
+        this.state = {
             currentRun : 0,
             ballIndex : 0,
             extraType: '',
-            bowlerOptions : [],
-            nextBowler : null,
+            bowlerOptions : ['Brett Lee', 'Glenn McGrath', 'Shane Warne', 'Zaheer Khan', 'Anil Kumble'],
+            currentBowler : null,
+            oldBowler : null,
             isDropdownVisible : false
         }
         this.recordRuns = this.recordRuns.bind(this)
         this.recordBalls = this.props.recordBalls.bind(this)
+        this.previousActiveButton = null
+        this.previousActiveExtraButton = null
     }
 
-    storeRun(run) {
+    storeRun(e) {
+        this.currentSelectedButton = e.target
+        if(this.previousActiveButton !== null) {
+            this.previousActiveButton.className = 'button-number'
+        }
+        this.currentSelectedButton.className = this.currentSelectedButton.className + ' active'
+        this.previousActiveButton = e.target
         this.setState({
-            currentRun: parseInt(run.target.value)
+            currentRun: parseInt(e.target.value)
         })
     }
 
-    storeExtra(extra){
+    storeExtra(e){
+        this.currentSelectedExtraButton = e.target
+        if(this.previousActiveExtraButton !== null) {
+            this.previousActiveExtraButton.className = 'button-number'
+        }
+        this.currentSelectedExtraButton.className = this.currentSelectedExtraButton.className + ' active'
+        this.previousActiveExtraButton = e.target
+
         this.setState({
-            extraType: extra.target.value
+            extraType: e.target.value
         })
     }
 
     updateBallCount(){
+        if(this.previousActiveButton !== null) this.previousActiveButton.className = 'button-number'
+        if(this.previousActiveExtraButton !== null) this.previousActiveExtraButton.className = 'button-number'
+        this.previousActiveButton = null
+        this.previousActiveExtraButton = null
         if(this.state.extraType === 'B' || this.state.extraType === 'Lb' || this.state.extraType ===''){
             if (this.state.ballIndex < 6) {
                 this.setState({
                     ballIndex: this.state.ballIndex + 1
                 }, () => {
-                    this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
+                    this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
                     this.recordRuns(this.state.currentRun)
                     this.setState({extraType: '',})
-                })
-            } else {
-                this.setState({
-                    ballIndex: 0
-                }, () => {
-                    this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
-                    this.recordRuns(this.state.currentRun)
-                    this.setState({extraType: '',})
+                    if(this.state.ballIndex === 6) {
+                        this.setState({
+                            oldBowler : this.state.currentBowler,
+                            currentBowler: null,
+                            ballIndex : 0
+                        })
+                    }
                 })
             }
         } else if(this.state.extraType === 'Wd' || this.state.extraType === 'Nb') {
             this.recordRuns(this.state.currentRun)
-            this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
+            this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
             this.setState({extraType: '',})
         }
-        
+
+        this.currentSelectedButton = null
+        this.currentSelectedExtraButton = null
     }
 
     recordRuns(){
@@ -90,65 +111,63 @@ class Runs extends Component {
 
     }
 
-    getAvailableBowlers(event){
-        this.setState({
-            bowlerOptions : ['Brett Lee', 'Glenn McGrath', 'Shane Warne'],
-            isDropdownVisible : true
-        });
-        
+    getAvailableBowlers(){
+        let abc = this.state.bowlerOptions.filter(bowler => bowler !== this.state.oldBowler)
+        return abc       
     }
-
 
     updateCurrentBowler(player){
         console.log(player.value)
         this.setState({
-            nextBowler : player.value,
+            currentBowler : player.value,
             isDropdownVisible : false
-        })
-        
+        })   
     }
+
     render() {
         let runs = [];
         for(let index =0 ;index< 8; index++){
             runs.push(
-                <button className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
+                <button key={index} className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
             )
         }
         let extras = ["Wd", "Nb", "B", "Lb"]
             let showExtras = extras.map(extra =>
-            <button key={extra} className = "button-number" value = { extra } onClick = { this.storeExtra.bind(this) } > { extra }</button >
+            <button key={extra} className = "button-number" value ={extra} onClick = { this.storeExtra.bind(this) } > { extra }</button >
         )
         
-        const defaultOption = ""
-
        return (
            <div className="runs">
                 <h1>Runs</h1>
-               {runs}
+                    {runs}
                <br></br>
                
                    <h1>Extra</h1>
-               {showExtras}
+                    {showExtras}
                <br></br>
-               <button className="button-next" disabled={this.state.nextBowler === null ? true : false}  onClick = {() => {
-                   this.updateBallCount()
-               }}>
+               <button className="button-next" disabled={this.state.currentBowler === null  || this.state.ballIndex === 6? true : false}  
+                onClick = {() => {this.updateBallCount()}}>
                    Next Ball
                </button>
-               <div className="button-stats"><Link to="/stats">Stats</Link></div>
+              
+               <div className="button-stats">
+                    <Link to="/stats">
+                        Stats
+                    </Link>
+                </div>
 
-               <button className="button-next" onClick = { () => {
-                   this.getAvailableBowlers()
-               }}>Change Bowler</button>
-               <p className={this.state.nextBowler === null? 'hidden': 'p'}>Selected Bowler : {this.state.nextBowler}</p>
+               <button className="button-next" onClick = { () => this.setState({isDropdownVisible : true})}>
+                    Change Bowler
+                </button>
+               <p className={this.state.currentBowler === null? 'hidden': 'p'}>
+                    Selected Bowler : {this.state.currentBowler}
+                </p>
 
                
                 <div className={this.state.isDropdownVisible ? 'dropdown' : 'hidden'}>
-
-                <Dropdown className="button-number" options={this.state.bowlerOptions} onChange={this.updateCurrentBowler.bind(this)}
-                value={this.state.nextBowler} placeholder="Select next bowler" />
+                    <Dropdown className="button-number" options={this.getAvailableBowlers()} onChange={this.updateCurrentBowler.bind(this)}
+                        value={''} placeholder="Select next bowler" />
                 </div>
-                
            </div>
        )
     }

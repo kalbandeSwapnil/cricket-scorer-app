@@ -41,3 +41,8 @@ button:disabled {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.active, .button-number:hover {
+    background-color: #666;
+    color: white;
+  }
