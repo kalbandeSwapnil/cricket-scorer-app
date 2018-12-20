@@ -49,8 +49,8 @@ class Runs extends Component {
     }
 
     updateBallCount(){
-        this.previousActiveButton.className = 'button-number'
-        this.previousActiveExtraButton.className = 'button-number'
+        if(this.previousActiveButton !== null) this.previousActiveButton.className = 'button-number'
+        if(this.previousActiveExtraButton !== null) this.previousActiveExtraButton.className = 'button-number'
         this.previousActiveButton = null
         this.previousActiveExtraButton = null
         if(this.state.extraType === 'B' || this.state.extraType === 'Lb' || this.state.extraType ===''){
