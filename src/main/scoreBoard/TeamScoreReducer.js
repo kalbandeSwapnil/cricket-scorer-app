@@ -12,10 +12,10 @@ let initialState = {
         isBatting : false,
         isBowling : true,
         listOfPlayers : [{
-            bowlerId : 1,
+            playerId : 1,
             name : "Brett Lee"
         },{
-            bowlerId : 2,
+            playerId : 2,
             name : "Zahir Khan"
         }],
         currentBowler : null,
@@ -33,10 +33,10 @@ let initialState = {
         isBatting : true,
         isBowling : false,
         listOfPlayers : [{
-            bowlerId : 3,
+            playerId : 3,
             name : "Ricky Ponting"
         },{
-            bowlerId : 4,
+            playerId : 4,
             name : "Greame Smith"
         }],
         currentBowler : null,
