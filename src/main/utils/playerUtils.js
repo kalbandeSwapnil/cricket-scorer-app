@@ -1,27 +1,7 @@
-// To create a new brand new player
-export const createPlayer = (name, id) => {
-    return {
-        name: name,
-        id: id,
-        batting: {
-            runs: 0,
-            fours: 0,
-            sixes: 0,
-            strikeRate: 0,
-            ballsFaced: 0
-        },
-        bowling: {
-            overs: 0,
-            maiden: 0,
-            runs: 0,
-            wickets: 0
-        }
-    }
-}
 
 // Function to get the batting and bowling stats of the given player
 export const getPlayerStats = (player, overs) => {
-    const grouped = groupPlayerDetails(overs, ball => ball.bowlerName)
+    const grouped = groupPlayerDetails(overs, ball => ball.batsmanName)
     return {
         batting: computeBattingDetails(grouped, player),
         bowling: computeBowlingDetails(player.playerId, overs)
@@ -53,6 +33,9 @@ const groupPlayerDetails = (overs, keyGetter) => {
 
 
 const computeBattingDetails = (grouped, player) => {
+    console.log(grouped)
+    console.log(player)
+    console.log(grouped.get(player.playerId))
     if(grouped.get(player.playerId) === undefined) return {}
         return {
             runs: grouped.get(player.playerId).reduce((sum, ball) => {
