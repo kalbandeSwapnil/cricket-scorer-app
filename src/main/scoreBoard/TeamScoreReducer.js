@@ -8,7 +8,9 @@ let initialState = {
         currentBall: 0 ,
         currentOver : 0,
         totalOver: 20,
-        overs : []
+        overs : [],
+        isBatting : true,
+        isBowling : false
     },
     team2 :{
         teamName : 'Team 2',
@@ -17,7 +19,9 @@ let initialState = {
         currentBall: 0 ,
         currentOver : 0,
         totalOver: 20,
-        overs: []
+        overs: [],
+        isBatting : false,
+        isBowling : true
     }
 
 }
