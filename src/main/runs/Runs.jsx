@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {actions} from  './RunsActions'
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Dropdown from 'react-dropdown';
+import './runs.css';
 
 class Runs extends Component {
     constructor(props){
@@ -9,8 +11,13 @@ class Runs extends Component {
         this.state ={
             currentRun : 0,
             ballIndex : 0,
-            extraType: ''
+            extraType: '',
+            bowlerOptions : [],
+            nextBowler : null,
+            isDropdownVisible : false
         }
+        this.recordRuns = this.recordRuns.bind(this)
+        this.recordBalls = this.props.recordBalls.bind(this)
     }
 
     storeRun(run) {
@@ -26,18 +33,29 @@ class Runs extends Component {
     }
 
     updateBallCount(){
-        debugger;
-        if(this.state.extraType === 'B' && this.state.extraType === 'Lb' || this.state.extraType ===''){
+        if(this.state.extraType === 'B' || this.state.extraType === 'Lb' || this.state.extraType ===''){
             if (this.state.ballIndex < 6) {
                 this.setState({
                     ballIndex: this.state.ballIndex + 1
+                }, () => {
+                    this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
+                    this.recordRuns(this.state.currentRun)
                 })
             } else {
                 this.setState({
                     ballIndex: 0
+                }, () => {
+                    this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
+                    this.recordRuns(this.state.currentRun)
                 })
             }
+        } else if(this.state.extraType === 'Wd' || this.state.extraType === 'Nb') {
+            this.recordRuns(this.state.currentRun)
+            this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
         }
+        this.setState({
+            extraType: ''
+        })
     }
 
     recordRuns(){
@@ -55,6 +73,8 @@ class Runs extends Component {
             case 'Nb':
                 runs = 1
                 break;
+            default:
+                break;
         }
         this.setState({
             currentRun : this.state.currentRun + runs
@@ -69,17 +89,36 @@ class Runs extends Component {
 
     }
 
+    getAvailableBowlers(event){
+        this.setState({
+            bowlerOptions : ['Brett Lee', 'Glenn McGrath', 'Shane Warne'],
+            isDropdownVisible : true
+        });
+        
+    }
+
+
+    updateCurrentBowler(player){
+        console.log(player.value)
+        this.setState({
+            nextBowler : player.value,
+            isDropdownVisible : false
+        })
+        
+    }
     render() {
         let runs = [];
-        for(let index = 0 ;index< 8; index++){
+        for(let index =0 ;index< 8; index++){
             runs.push(
-                <button key={index} className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
+                <button className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
             )
         }
         let extras = ["Wd", "Nb", "B", "Lb"]
             let showExtras = extras.map(extra =>
-            <button className = "button-number" value = { extra } onClick = { this.storeExtra.bind(this) } > { extra }</button >
+            <button key={extra} className = "button-number" value = { extra } onClick = { this.storeExtra.bind(this) } > { extra }</button >
         )
+        
+        const defaultOption = ""
 
        return (
            <div className="runs">
@@ -87,16 +126,28 @@ class Runs extends Component {
                {runs}
                <br></br>
                
-               <h1>Extra</h1>
+                   <h1>Extra</h1>
                {showExtras}
-               <button className="button-next"  onClick = {() => {
+               <br></br>
+               <button className="button-next" disabled={this.state.nextBowler === null ? true : false}  onClick = {() => {
                    this.updateBallCount()
-                   this.recordRuns(this.state.currentRun)
-                   this.props.recordBalls("Swapnil", this.state.ballIndex, this.state.currentRun, this.state.extraType)
                }}>
                    Next Ball
                </button>
                <div className="button-stats"><Link to="/stats">Stats</Link></div>
+
+               <button className="button-next" onClick = { () => {
+                   this.getAvailableBowlers()
+               }}>Change Bowler</button>
+               <p className={this.state.nextBowler === null? 'hidden': 'p'}>Selected Bowler : {this.state.nextBowler}</p>
+
+               
+                <div className={this.state.isDropdownVisible ? 'dropdown' : 'hidden'}>
+
+                <Dropdown className="button-number" options={this.state.bowlerOptions} onChange={this.updateCurrentBowler.bind(this)}
+                value={this.state.nextBowler} placeholder="Select next bowler" />
+                </div>
+                
            </div>
        )
     }
