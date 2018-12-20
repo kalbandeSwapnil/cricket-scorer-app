@@ -9,8 +9,18 @@ let initialState = {
         currentOver : 0,
         totalOver: 20,
         overs : [],
-        isBatting : true,
-        isBowling : false
+        isBatting : false,
+        isBowling : true,
+        listOfPlayers : [{
+            bowlerId : 1,
+            name : "Brett Lee"
+        },{
+            bowlerId : 2,
+            name : "Zahir Khan"
+        }],
+        currentBowler : null,
+        nonStriker : null,
+        striker : null
     },
     team2 :{
         teamName : 'Team 2',
@@ -20,8 +30,18 @@ let initialState = {
         currentOver : 0,
         totalOver: 20,
         overs: [],
-        isBatting : false,
-        isBowling : true
+        isBatting : true,
+        isBowling : false,
+        listOfPlayers : [{
+            bowlerId : 3,
+            name : "Ricky Ponting"
+        },{
+            bowlerId : 4,
+            name : "Greame Smith"
+        }],
+        currentBowler : null,
+        nonStriker : null,
+        striker : null
     }
 
 }
