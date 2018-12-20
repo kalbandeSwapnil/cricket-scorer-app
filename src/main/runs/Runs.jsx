@@ -40,6 +40,7 @@ class Runs extends Component {
                 }, () => {
                     this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
                     this.recordRuns(this.state.currentRun)
+                    this.setState({extraType: '',})
                 })
             } else {
                 this.setState({
@@ -47,15 +48,15 @@ class Runs extends Component {
                 }, () => {
                     this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
                     this.recordRuns(this.state.currentRun)
+                    this.setState({extraType: '',})
                 })
             }
         } else if(this.state.extraType === 'Wd' || this.state.extraType === 'Nb') {
             this.recordRuns(this.state.currentRun)
             this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
+            this.setState({extraType: '',})
         }
-        this.setState({
-            extraType: ''
-        })
+        
     }
 
     recordRuns(){
