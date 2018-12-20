@@ -10,9 +10,9 @@ class Runs extends Component {
         super(props);
         this.state = {
             currentRun : 0,
-            ballIndex : 0,
+            ballIndex : this.props.battingTeam.currentBall,
             extraType: '',
-            currentBowler : null,
+            currentBowler : this.props.bowlingTeam.currentBowler,
             oldBowler : null,
             isDropdownVisible : false,
             wicket : false
@@ -36,7 +36,6 @@ class Runs extends Component {
             this.setState({
                 wicket: true
             })
-
         }
 
     }
@@ -135,9 +134,9 @@ class Runs extends Component {
 
     getAvailableBowlers(){
         let bowlers = this.getBowlers()
-        let currentBowler =  this.props.bowlingTeam.currentBowler 
-        let currentBowlerId  = currentBowler && currentBowler.playerId
-        return bowlers.filter(bowler => bowler.value !== currentBowlerId)
+        let oldBowler =  this.props.bowlingTeam.oldBowler
+        let oldBowlerId  = oldBowler && oldBowler.playerId
+        return bowlers.filter(bowler => bowler.value !== oldBowlerId)
     }
 
     updateCurrentBowler(player){
@@ -147,12 +146,8 @@ class Runs extends Component {
         }, () => {
             this.props.updateCurrentBowler(this.props.bowlingTeam.listOfPlayers.filter( p => p.playerId === player.value)[0])})   
     }
-    getName(playerId){
-        return this.props.bowlingTeam.listOfPlayers
-    }
 
     getBowlers() {
-        
         return this.props.bowlingTeam.listOfPlayers.map( p => {
             return {
                 value : p.playerId,
@@ -187,7 +182,7 @@ class Runs extends Component {
                    Out
                </button>
                <br></br>
-               <button className="button-next" disabled={this.state.currentBowler === null  || this.state.ballIndex === 6? true : false}  
+               <button className="button-next" disabled={this.props.bowlingTeam.currentBowler=== null  || this.props.bowlingTeam.currentBall === 6? true : false}
                 onClick = {() => {this.updateBallCount()}}>
                    Next Ball
                </button>
@@ -217,7 +212,8 @@ class Runs extends Component {
 
 export const mapStateToProps = (state) => {
     return {
-        bowlingTeam : state.teamScore.team1.isBowling ? state.teamScore.team1 : state.teamScore.team2
+        bowlingTeam : state.teamScore.team1.isBowling ? state.teamScore.team1 : state.teamScore.team2,
+        battingTeam : state.teamScore.team1.isBatting ? state.teamScore.team1 : state.teamScore.team2
     }
 }
 

@@ -83,7 +83,8 @@ let initialState = {
         listOfPlayers: team1Players,
         currentBowler : null,
         nonStriker : null,
-        striker : null
+        striker : null,
+        oldBowler: null
     },
     team2: {
         teamName: 'Team 2',
@@ -98,7 +99,8 @@ let initialState = {
         listOfPlayers: team2Players,
         currentBowler : null,
         nonStriker : null,
-        striker : null
+        striker : null,
+        oldBowler: null
     }
 
 }
@@ -121,7 +123,8 @@ export const teamScore = (state = initialState, action) => {
             if(action.ballIndex === 6){
                 newState = {
                     ...state,
-                    [battingTeam]: {...state[battingTeam], currentOver: state[battingTeam].currentOver+1, currentBall : 0, overs : newOverList  }
+                    [battingTeam]: {...state[battingTeam], currentOver: state[battingTeam].currentOver+1, currentBall : 0, overs : newOverList },
+                    [bowlingTeam]: {...state[bowlingTeam], oldBowler : state[bowlingTeam].currentBowler , currentBowler :null }
                 }
             }
             else if(action.extraType === 'Lb'  || action.extraType === 'B' || action.extraType ==='') {
