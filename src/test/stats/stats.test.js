@@ -56,7 +56,7 @@ test('/stats path should redirect to Stats Component', () => {
     );
 
     expect(wrapper.exists('.button-stats')).toEqual(true)
-    expect(wrapper.find('.button-stats').text()).toEqual('Stats')
+    expect(wrapper.find('.button-stats').text()).toEqual('Score Card')
   });
 
   test('/stats path should contains home link', () => {
