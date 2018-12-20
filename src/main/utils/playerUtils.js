@@ -86,6 +86,7 @@ const computeBowlingDetails = (name, overs) => {
         runs: overs.reduce((overAllSum, over) => {
             let runsInThisOver = over.reduce((sum, ball) => {
                 if (ball.bowlerName === name) return sum + ball.runs
+                return sum
             }, 0)
             if (runsInThisOver > 0) {
                 overAllSum += runsInThisOver

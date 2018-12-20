@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import * as PlayerUtil from "../utils/playerUtils";
 
 
 export const BowlingScore = (props) => {
