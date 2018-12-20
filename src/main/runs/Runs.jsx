@@ -84,7 +84,7 @@ class Runs extends Component {
                 this.setState({
                     ballIndex: this.state.ballIndex + 1
                 }, () => {
-                    this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType,this.state.wicket);
+                    this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType,this.state.wicket,this.props.battingTeam.striker.playerId,this.props.battingTeam.striker.name,this.props.bowlingTeam.currentBowler);
                     this.recordRuns(this.state.currentRun)
                     this.setState({extraType: '',wicket: false})
                     if(this.state.ballIndex === 6) {
@@ -233,8 +233,8 @@ export const  mapDispatchToProps = (dispatch) => {
         updateCurrentBowler : function(player) {
             dispatch(actions.updateCurrentBowler(player))
         },
-        recordBalls : function(name, ballIndex, run ,extraType,wicket) {
-            dispatch(actions.recordBalls(name, ballIndex, run, extraType, wicket))
+        recordBalls : function(name, ballIndex, run ,extraType,wicket,batsmanName,batsmanDisplayName,bowlerDisplayName) {
+            dispatch(actions.recordBalls(name, ballIndex, run, extraType, wicket,batsmanName,batsmanDisplayName,bowlerDisplayName))
         },
         toggleTeams : function (){
             dispatch(actions.toggleTeams())

@@ -60,13 +60,13 @@ const computeBowlingDetails = (name, overs) => {
         }).length,
         maiden: overs.filter((over) => {
             let maidenOver = over.filter(ball => {
-                return ball.runs === 0
+                return ball.totalRuns === 0
             })
             return maidenOver.length === 6
         }).length,
         runs: overs.reduce((overAllSum, over) => {
             let runsInThisOver = over.reduce((sum, ball) => {
-                if (ball.bowlerName === name) return sum + ball.runs
+                if (ball.bowlerName === name) return sum + ball.totalRuns
                 return sum
             }, 0)
             if (runsInThisOver > 0) {

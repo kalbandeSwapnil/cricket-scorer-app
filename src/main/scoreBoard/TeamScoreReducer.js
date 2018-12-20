@@ -47,15 +47,27 @@ let initialState = {
 export const teamScore = (state = initialState, action) => {
     let bowlingTeam  = state.team1.isBowling ? "team1" : "team2"
     let battingTeam  = state.team1.isBatting ? "team1" : "team2"
+    let changeStrike = action.run ? true : false
     switch(action.type) {
         case "UPDATE_RUNS" :
-            return {
+            let newStateWithRuns = {
                 ...state,
                 [battingTeam] : {...state[battingTeam], runs: state[battingTeam].runs + action.run}
             }
+
+             if(changeStrike === true){
+                return {
+                 ...newStateWithRuns,
+                     [battingTeam]: {...newStateWithRuns[battingTeam], striker: newStateWithRuns[battingTeam].nonStriker , nonStriker: newStateWithRuns[battingTeam].striker }
+                 }
+
+                        }else {
+                 return newStateWithRuns;
+             }
+
         case "UPDATE_BALLS" :
             let newState = state;
-            let ball = createNewBall(action.name, action.runs, action.extraType,action.wicket)
+            let ball = createNewBall(action.name, action.runs, action.extraType,action.wicket,action.batsmandName,action.batsmanDisplayName,action.bowlerDisplayName)
             let newOverList = pushOverToOverList(ball, state.team1.overs, action.ballIndex)
 
 

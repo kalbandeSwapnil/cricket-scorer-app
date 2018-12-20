@@ -1,10 +1,10 @@
 export const teamOnePlayers =  [
     {
         playerId: '1-1',
-        name: "Ashish Nehra"
+        name: "Shikhar Dhawan"
     }, {
         playerId: '1-2',
-        name: "Virat Kohli"
+        name: "Virendra Sehwag"
     }, {
         playerId: '1-3',
         name: "Yuvraj Singh"
@@ -13,7 +13,7 @@ export const teamOnePlayers =  [
         name: "Rohit Sharma"
     }, {
         playerId: '1-5',
-        name: "Shikhar Dhawan"
+        name: "Virat Kohli"
     },  {
         playerId: '1-6',
         name: "Ajinkya Rahane"
@@ -25,7 +25,7 @@ export const teamOnePlayers =  [
         name: "Gaumtam Gambhir"
     }, {
         playerId: '1-9',
-        name: "Virendra Sehwag"
+        name: "Ashish Nehra"
     }, {
         playerId: '1-10',
         name: "Ashwin"

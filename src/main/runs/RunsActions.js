@@ -4,13 +4,16 @@ const recordRuns = (run) => ({
     run
 });
 
-const recordBalls = (name, ballIndex, runs, extraType ,wicket) => ({
+const recordBalls = (name, ballIndex, runs, extraType ,wicket,batsmandName,battingDisplayName,bowlerDisplayName) => ({
     type: "UPDATE_BALLS",
     name,
     ballIndex,
     runs,
     extraType,
-    wicket
+    wicket,
+    batsmandName,
+    battingDisplayName,
+    bowlerDisplayName
 
 });
 const toggleTeams = () => ({
