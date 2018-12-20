@@ -111,7 +111,7 @@ class Runs extends Component {
         let runs = [];
         for(let index =0 ;index< 8; index++){
             runs.push(
-                <button className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
+                <button key = {index} className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
             )
         }
         let extras = ["Wd", "Nb", "B", "Lb"]
