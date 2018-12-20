@@ -1,77 +1,13 @@
 import {createNewBall, pushOverToOverList} from '../utils/generalUtils'
+import {teamOnePlayers,teamTwoPlayers} from "../Constants";
 
-const team1Players = [{
-    playerId: 1,
-    name: "abc1"
-}, {
-    playerId: 2,
-    name: "abc2"
-}, {
-    playerId: 3,
-    name: "abc3"
-}, {
-    playerId: 4,
-    name: "abc4"
-}, {
-    playerId: 5,
-    name: "abc5"
-},  {
-    playerId: 6,
-    name: "abc6"
-}, {
-    playerId: 7,
-    name: "abc7"
-}, {
-    playerId: 8,
-    name: "abc8"
-}, {
-    playerId: 9,
-    name: "abc9"
-}, {
-    playerId: 10,
-    name: "abc10"
-}, {
-    playerId: 11,
-    name: "abc11"
-}]
+const team1Players = teamOnePlayers
 
-const team2Players = [{
-    playerId: 21,
-    name: "xyz1"
-}, {
-    playerId: 22,
-    name: "xyz2"
-}, {
-    playerId: 23,
-    name: "xyz3"
-}, {
-    playerId: 24,
-    name: "xyz4"
-}, {
-    playerId: 25,
-    name: "xyz5"
-}, {
-    playerId: 26,
-    name: "xyz6"
-}, {
-    playerId: 27,
-    name: "xyz7"
-}, {
-    playerId: 28,
-    name: "xyz8"
-}, {
-    playerId: 29,
-    name: "abc9"
-}, {
-    playerId: 210,
-    name: "xyz10"
-}, {
-    playerId: 211,
-    name: "xyz11"
-}]
+const team2Players = teamTwoPlayers
+
 let initialState = {
     team1: {
-        teamName: 'Team 1',
+        teamName: 'India',
         runs: 0,
         wickets: 0,
         currentBall: 0,
@@ -87,9 +23,9 @@ let initialState = {
         oldBowler: null
     },
     team2: {
-        teamName: 'Team 2',
-        runs: 150,
-        wickets: 8,
+        teamName: 'Pak',
+        runs: 0,
+        wickets: 0,
         currentBall: 0,
         currentOver: 0,
         totalOver: 20,

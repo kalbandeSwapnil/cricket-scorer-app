@@ -23,6 +23,7 @@ class Runs extends Component {
         this.previousActiveExtraButton = null
         this.outButton = null;
     }
+
     recordWickets(e) {
         this.outButton =e.target
         if(this.outButton.className.includes(' active')) {
@@ -39,6 +40,7 @@ class Runs extends Component {
         }
 
     }
+
     storeRun(e) {
         this.currentSelectedButton = e.target
         if(this.previousActiveButton !== null) {
@@ -127,8 +129,7 @@ class Runs extends Component {
                 currentRun: 0,
                 extraType: ''
             })
-        }
-        )   
+        })
 
     }
 
@@ -140,6 +141,7 @@ class Runs extends Component {
     }
 
     updateCurrentBowler(player){
+        console.log("current Player", player)
         this.setState({
             currentBowler : player.value,
             isDropdownVisible : false

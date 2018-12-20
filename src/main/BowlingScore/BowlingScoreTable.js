@@ -6,12 +6,6 @@ import "react-table/react-table.css";
 
 export const BowlingScore = (props) => {
     let bowlersList =[];
-    // for(let i=0;i<props.team.listOfPlayers.length;i++){
-    //     if(props.team.listOfPlayers[i].bowling) {
-    //         let bowlerStats = PlayerUtil.computeBowlingDetails(props.team.listOfPlayers[i].name, props.team.overs)
-    //         bowlersList.push(bowlerStats);
-    //     }
-    // }
 
     return (
             <ReactTable
@@ -32,22 +26,21 @@ export const BowlingScore = (props) => {
                             {
                                 Header: "Overs",
                                 id: "overs",
-                               // accessor: d => d[ball.bowlerName].Overs
+
                             },
                             {
                                 Header: "Maiden",
                                 id: "Maiden",
-                               // accessor: d => d[ball.bowlerName].Maiden
+
                             },
                             {
                                 Header: "Run",
                                 id: "Run",
-                               // accessor: d => d[ball.bowlerName].Run
+
                             },
                             {
                                 Header: "Wickets",
                                 id: "Wickets",
-                               // accessor: d => d[ball.bowlerName].Wickets
                             }
                         ]
                     }
