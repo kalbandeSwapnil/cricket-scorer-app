@@ -34,9 +34,6 @@ const groupPlayerDetails = (overs, keyGetter) => {
 
 
 const computeBattingDetails = (grouped, player) => {
-    console.log(grouped)
-    console.log(player)
-    console.log(grouped.get(player.playerId))
     if(grouped.get(player.playerId) === undefined) return {}
         return {
             runs: grouped.get(player.playerId).reduce((sum, ball) => {

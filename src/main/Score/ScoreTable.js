@@ -119,7 +119,6 @@ export const mapStateToProps = (state, ownProps) => {
                     if(player.bowling.overs > 0) return player
                     return false
                 })
-            console.log(playerStats)
 
                 let battingPlayerList = listOfBattingTeam.filter(player => {
                     const {bowling, batting} = PlayerUtil.getPlayerStats(player, teamOvers)
@@ -128,7 +127,6 @@ export const mapStateToProps = (state, ownProps) => {
                     if(player.batting.runs > 0) return player
                     return false
                 })
-            console.log(battingPlayerList)
     return {
         playerList : playerStats,
         battingPlayerList: battingPlayerList,

@@ -1,6 +1,6 @@
 import React from 'react'
 import './Stats.css'
-import {TeamScore} from '../scoreBoard/TeamScore'
+import  {TeamScoreContainer} from '../scoreBoard/TeamScore'
 import { Link } from 'react-router-dom'
 import { BowlingScoreContainer } from '../Score/ScoreTable'
 import {connect} from 'react-redux';
@@ -11,7 +11,7 @@ class Stats extends React.Component {
     render () {
         return (
             <div className="container">
-                <TeamScore team1={this.props.team1} team2={this.props.team2}/>
+                <TeamScoreContainer />
                 <div className="button-stats"><Link to="/">Home</Link></div>
                 <BowlingScoreContainer isBattingScore ={false}/>
 
