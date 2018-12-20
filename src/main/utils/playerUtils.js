@@ -21,8 +21,6 @@ export const createPlayer = (name, id) => {
 
 // Function to get the batting and bowling stats of the given player
 export const getPlayerStats = (player, overs) => {
-    console.log(player.playerId)
-    console.log(overs)
     const grouped = groupPlayerDetails(overs, ball => ball.bowlerName)
     return {
         batting: computeBattingDetails(grouped, player),
