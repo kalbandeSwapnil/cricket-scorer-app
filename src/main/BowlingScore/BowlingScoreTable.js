@@ -7,12 +7,13 @@ import * as PlayerUtil from "../utils/playerUtils";
 
 export const BowlingScore = (props) => {
     let bowlersList =[];
-    for(let i=0;i<props.team.listOfPlayers.length;i++){
-        if(props.team.listOfPlayers[i].bowling) {
-            let bowlerStats = PlayerUtil.computeBowlingDetails(props.team.listOfPlayers[i].name, props.team.overs)
-            bowlersList.push(bowlerStats);
-        }
-    }
+    // for(let i=0;i<props.team.listOfPlayers.length;i++){
+    //     if(props.team.listOfPlayers[i].bowling) {
+    //         let bowlerStats = PlayerUtil.computeBowlingDetails(props.team.listOfPlayers[i].name, props.team.overs)
+    //         bowlersList.push(bowlerStats);
+    //     }
+    // }
+
     console.log("******",bowlersList);
 
     return (

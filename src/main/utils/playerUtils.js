@@ -85,86 +85,28 @@ const computeBowlingDetails = (name, overs) => {
         }).length,
         runs: overs.reduce((overAllSum, over) => {
             let runsInThisOver = over.reduce((sum, ball) => {
-                if(ball.bowlerName === name) return sum + ball.runs
+                if (ball.bowlerName === name) return sum + ball.runs
             }, 0)
-            if(runsInThisOver > 0) {
+            if (runsInThisOver > 0) {
                 overAllSum += runsInThisOver
-            } 
+            }
             return overAllSum
         }, 0),
         wickets: overs.reduce((wickets, over) => {
-            let noOfWicketsInThisOver = over.reduce((sumOfWickets, ball) => {
-                if(ball.out) return sumOfWickets + 1
-                return sumOfWickets
-            }, 0)
-            if(noOfWicketsInThisOver > 0) {
-                wickets += noOfWicketsInThisOver
-                console.log('here')
-            }
+            // let wicketsInThisOver = over.reduce((sumOfWickets, ball) => {
+            //     if(ball.out) {
+            //         console.log('He took a wicket')
+            //         return sumOfWickets + 1                }
+            // }, 0)
+            // console.log(wicketsInThisOver)
+            // if(wicketsInThisOver > 0) {
+            //     wickets += wicketsInThisOver
+            //     console.log('here')
+            // }
             return wickets
         }, 0)
     }
-} 
-
-let dummyOvers = [
-    [{
-        bowlerName: 'Kishore',
-        extras: { type: ''},
-        isExtras : false,
-        out: false,
-        runs:  4
-    },{
-        bowlerName: 'Kishore',
-        extras: { type: ''},
-        isExtras : false,
-        out: false,
-        runs:  4
-    }],
-    [{
-        bowlerName: 'Kishore',
-        extras: { type: ''},
-        isExtras : false,
-        out: false,
-        runs:  6
-    },{
-        bowlerName: 'Kishore',
-        extras: { type: ''},
-        isExtras : false,
-        out: false,
-        runs:  0
-    },{
-        bowlerName: 'Kishore',
-        extras: { type: 'Wd'},
-        isExtras : false,
-        out: false,
-        runs:  6
-    },{
-        bowlerName: 'Kishore',
-        extras: { type: 'B'},
-        isExtras : false,
-        out: true,
-        runs:  4
-    },{
-        bowlerName: 'Kishore',
-        extras: { type: 'Lb'},
-        isExtras : false,
-        out: false,
-        runs:  0
-    },{
-        bowlerName: 'Kishore',
-        extras: { type: 'Nb'},
-        isExtras : false,
-        out: false,
-        runs:  0
-    }],
-    [{
-        bowlerName: 'ABC',
-        extras: { type: ''},
-        isExtras : false,
-        out: false,
-        runs:  4
-    },]
-]
+}
 
 // let player = createPlayer('Kishore', 123)
 // player.bowling = computeBowlingDetails(player.name, dummyOvers)
