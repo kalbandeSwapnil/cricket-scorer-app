@@ -93,7 +93,6 @@ export const teamScore = (state = initialState, action) => {
             case "TOGGLE_TEAM":
             console.log(state.team1.wickets)
                 if(!state.team1.hasBatted && state.team1.isBatting && (state.team1.currentOver === state.team1.totalOver || state.team1.wickets === 10)){
-                    console.log("----------")
                     return {
                         ...state,
                         team1 : {...state.team1, isBatting : false, isBowling : true, hasBatted : true },
@@ -101,7 +100,6 @@ export const teamScore = (state = initialState, action) => {
                     }
                 }
                 if(!state.team2.hasBatted && (state.team2.currentOver === state.team2.totalOver || state.team2.wickets === 10) ){
-                    console.log("----------")
                     return {
                         ...state,
                         team1 : {...state.team1, isBatting : false, isBowling : true },
