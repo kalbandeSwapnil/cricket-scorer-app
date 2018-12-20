@@ -41,8 +41,8 @@ let initialState = {
     }
 
 }
- const getNextBatsman =(team)=>{
-    return team.listOfPlayers.filter(player => player.isBattingDone === false)[0]
+ const getNextBatsman =(listOfPlayers)=>{
+    return listOfPlayers.filter(player => player.isBattingDone === false)[0]
  }
 
 export const teamScore = (state = initialState, action) => {
@@ -90,10 +90,17 @@ export const teamScore = (state = initialState, action) => {
 
             }
             if (action.wicket === true) {
-                let newBatsman = getNextBatsman(state[battingTeam]);
+                let newPlayers = state[battingTeam].listOfPlayers.map(player => {
+                if(player.playerId === state[battingTeam].striker.playerId) {
+                       player.isBattingDone = true 
+                    }
+                    return player
+                })
+                let newBatsman = getNextBatsman(newPlayers);
+                
                 return {
                     ...newState,
-                    [battingTeam]: {...newState[battingTeam], wickets: newState[battingTeam].wickets+1, striker : newBatsman}
+                    [battingTeam]: {...newState[battingTeam], wickets: newState[battingTeam].wickets+1, striker : newBatsman, listOfPlayers : newPlayers}
                 }
             }
 
