@@ -10,14 +10,20 @@ export const OverStatus = (props) => {
         let ballDescription  = ''
         if(ball['runs'] && ball['extras'].type)
         {
-            ballDescription = ball['runs'] + ball['extras'].type + ' '
+            ballDescription = ball['runs'] + ball['extras'].type
         }
         else if(ball['extras'].type) {
-            ballDescription = ball['extras'].type + ' '
+            ballDescription = ball['extras'].type
         }
         else {
-            ballDescription = ball['runs']  + ' '
+            ballDescription = ball['runs']
         }
+        if(ball['out'] === true) {
+            ballDescription = ballDescription + 'W'
+            ballDescription = ballDescription.replace('0','');
+        }
+        ballDescription = ballDescription + ' '
+
         overHistory.push(ballDescription)});
         
     return (
@@ -50,7 +56,8 @@ const mapStateToProps = (state) => {
     let ballsLength = newOver && newOver.length
     return {
         currentOver: overs[overs.length - 1],
-        balls : ballsLength
+        balls : ballsLength,
+        bowlingTeam : state.teamScore.team1.isBowling ? state.teamScore.team1 : state.teamScore.team2
     }
 }
 
