@@ -8,7 +8,7 @@ import './runs.css';
 class Runs extends Component {
     constructor(props){
         super(props);
-        this.state ={
+        this.state = {
             currentRun : 0,
             ballIndex : 0,
             extraType: '',
@@ -41,14 +41,7 @@ class Runs extends Component {
                     this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
                     this.recordRuns(this.state.currentRun)
                     this.setState({extraType: '',})
-                })
-            } else {
-                this.setState({
-                    ballIndex: 0
-                }, () => {
-                    this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
-                    this.recordRuns(this.state.currentRun)
-                    this.setState({extraType: '',})
+                    if(this.state.ballIndex === 6) this.setState({ballIndex : 0})
                 })
             }
         } else if(this.state.extraType === 'Wd' || this.state.extraType === 'Nb') {
@@ -56,7 +49,6 @@ class Runs extends Component {
             this.recordBalls(this.state.nextBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
             this.setState({extraType: '',})
         }
-        
     }
 
     recordRuns(){
@@ -119,8 +111,6 @@ class Runs extends Component {
             <button key={extra} className = "button-number" value = { extra } onClick = { this.storeExtra.bind(this) } > { extra }</button >
         )
         
-        const defaultOption = ""
-
        return (
            <div className="runs">
                 <h1>Runs</h1>
