@@ -13,6 +13,9 @@ const recordBalls = (name, ballIndex, runs, extraType ,wicket) => ({
     wicket
 
 });
+const toggleTeams = () => ({
+    type : "TOGGLE_TEAM",
+});
 
 const updateCurrentBowler = (player) => ({
     type: "UPDATE_CURRENT_BOWLER",
@@ -24,5 +27,6 @@ const updateCurrentBowler = (player) => ({
 export const actions = {
     recordRuns,
     recordBalls,
-    updateCurrentBowler
+    updateCurrentBowler,
+    toggleTeams
 }

@@ -69,7 +69,7 @@ export const getPlayerStats = (player, overs) => {
 //     }
 // }
 
-const computeBowlingDetails = (name, overs) => {
+export const computeBowlingDetails = (name, overs) => {
     return {
         overs: overs.filter((over) => {
             let updatedOver = over.filter(ball => {

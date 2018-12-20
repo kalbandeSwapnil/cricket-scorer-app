@@ -1,6 +1,7 @@
 import React from 'react'
 import './Stats.css'
 import  {TeamScoreContainer} from '../scoreBoard/TeamScore'
+import {TeamScore} from '../scoreBoard/TeamScore'
 import { Link } from 'react-router-dom'
 import { BowlingScoreContainer } from '../BowlingScore/BowlingScoreTable'
 import {connect} from 'react-redux';
@@ -21,9 +22,19 @@ class Stats extends React.Component {
 }
 
 export const mapStateToProps = (state) => {
-    return {
-        team1 : state.teamScore.team1,
-        team2 : state.teamScore.team2
+    if(state.teamScore.team1.isBatting){
+        return {
+        
+            team1 : state.teamScore.team1,
+            team2 : state.teamScore.team2
+        }
+    }
+    else{
+        return {
+        
+            team1 : state.teamScore.team2,
+            team2 : state.teamScore.team1
+        }
     }
 }
 
