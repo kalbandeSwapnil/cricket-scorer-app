@@ -1,4 +1,4 @@
-export const createNewBall = (bowlerName, runs, extraType, batsmanName = "batsman",wicket) => {
+export const createNewBall = (bowlerName, runs, extraType, batsmanName = "batsman", wicket) => {
     return {
         bowlerName : bowlerName,
         batsmanName: batsmanName,

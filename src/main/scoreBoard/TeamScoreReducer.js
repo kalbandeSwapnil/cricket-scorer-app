@@ -61,7 +61,7 @@ const team2Players = [{
     name: "xyz8"
 }, {
     playerId: 29,
-    name: "abc9"
+    name: "xyz9"
 }, {
     playerId: 210,
     name: "xyz10"
