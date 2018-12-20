@@ -18,9 +18,11 @@ configure({ adapter: new Adapter()})
 
 test('/stats path should redirect to Stats Component', () => {
     const wrapper = mount(
-      <MemoryRouter initialEntries={[ '/stats' ]}>
-        <App/>
-      </MemoryRouter>
+        <Provider store={testStore}>
+            <MemoryRouter initialEntries={[ '/stats' ]}>
+            <App/>
+          </MemoryRouter>
+        </Provider>
     );
     expect(wrapper.find(CricketGame)).toHaveLength(0);
     expect(wrapper.find(Stats)).toHaveLength(1);
