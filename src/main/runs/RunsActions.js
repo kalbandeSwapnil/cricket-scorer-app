@@ -23,13 +23,20 @@ const toggleTeams = () => ({
 const updateCurrentBowler = (player) => ({
     type: "UPDATE_CURRENT_BOWLER",
     player
+});
+
+const updateWinnerStatus = (status) => ({
+    type: "UPDATE_WINNER_STATUS",
+    status
 
 });
+
 
 
 export const actions = {
     recordRuns,
     recordBalls,
     updateCurrentBowler,
-    toggleTeams
+    toggleTeams,
+    updateWinnerStatus
 }

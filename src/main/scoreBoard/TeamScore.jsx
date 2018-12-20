@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
+import {TOTAL_OVERS} from "../Constants";
 
  export const TeamScore = (props) => {
      let isBold = true;
@@ -14,7 +14,7 @@ import {connect} from 'react-redux';
                     <div className="teamScore" style ={isBold ? scoreBoldStyle : scoreNormalStyle}>{props.team1.runs}/{props.team1.wickets}</div>
                     <div className="inStatic" style ={isBold ? teamBoldStyle : teamNormalStyle}> in </div>
                         <div className="currentBallAndOver" style={isBold ? scoreBoldStyle : scoreNormalStyle}>
-                            {props.team1.currentOver + '.'}{props.team1.currentBall + '/'}{props.team1.totalOver}
+                            {props.team1.currentOver + '.'}{props.team1.currentBall + '/'}{TOTAL_OVERS}
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@ import {connect} from 'react-redux';
                         <div className="teamScore" style ={isBold ? scoreBoldStyle : scoreNormalStyle}>{props.team2.runs}/{props.team2.wickets}</div>
                         <div className="inStatic" style ={isBold ? teamBoldStyle : teamNormalStyle}> in </div>
                         <div className="currentBallAndOver" style={isBold ? scoreBoldStyle : scoreNormalStyle}>
-                            {props.team2.currentOver + '.'}{props.team2.currentBall + '/'}{props.team2.totalOver}
+                            {props.team2.currentOver + '.'}{props.team2.currentBall + '/'}{TOTAL_OVERS}
                         </div>
                     </div>
                 </div>

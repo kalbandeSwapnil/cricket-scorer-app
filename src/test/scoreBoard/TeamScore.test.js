@@ -2,10 +2,9 @@ import React from 'react';
 import {TeamScore} from '../../main/scoreBoard/TeamScore'
 import {shallow, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-
 import { configure } from 'enzyme';
-
 import {teamScore} from '../../main/scoreBoard/TeamScoreReducer';
+import {TOTAL_OVERS} from "../../main/Constants";
 configure({ adapter: new Adapter() })
 
 
@@ -16,7 +15,6 @@ let state = {
         wickets: 6,
         currentBall: 2,
         currentOver: 9,
-        totalOver: 10
 
     },
     team2: {
@@ -25,7 +23,6 @@ let state = {
         wickets: 8,
         currentBall: 0,
         currentOver: 0,
-        totalOver: 20
     }
 }
 it('should render team score', () => {
@@ -40,7 +37,7 @@ it('should render team score', () => {
     expect(s).toEqual("100/6");
 
     let string = wrapper.find('.currentBallAndOver').at(0).text();
-    expect(string).toEqual("9.2/10");
+    expect(string).toEqual("9.2/"+ TOTAL_OVERS);
 
 
 });

@@ -6,13 +6,13 @@ const team1Players = teamOnePlayers
 const team2Players = teamTwoPlayers
 
 let initialState = {
+    winnerStatus: "",
     team1: {
         teamName: 'India',
         runs: 0,
         wickets: 0,
         currentBall: 0,
         currentOver: 0,
-        totalOver: 2,
         overs : [],
         isBatting : true,
         isBowling : false,
@@ -29,7 +29,6 @@ let initialState = {
         wickets: 0,
         currentBall: 0,
         currentOver: 0,
-        totalOver: 2,
         overs: [],
         isBatting : false,
         isBowling : true,
@@ -68,7 +67,7 @@ export const teamScore = (state = initialState, action) => {
         case "UPDATE_BALLS" :
             let newState = state;
             let ball = createNewBall(action.name, action.runs, action.extraType,action.wicket,action.batsmandName,action.batsmanDisplayName,action.bowlerDisplayName)
-            let newOverList = pushOverToOverList(ball, state.team1.overs, action.ballIndex)
+            let newOverList = pushOverToOverList(ball, state[battingTeam].overs, action.ballIndex)
 
 
             if(action.ballIndex === 6){
@@ -103,23 +102,15 @@ export const teamScore = (state = initialState, action) => {
                         [bowlingTeam]: {...state[bowlingTeam], currentBowler: action.player }
                     }
             case "TOGGLE_TEAM":
-            console.log(state.team1.wickets)
-                if(!state.team1.hasBatted && state.team1.isBatting && (state.team1.currentOver === state.team1.totalOver || state.team1.wickets === 10)){
-                    return {
-                        ...state,
-                        team1 : {...state.team1, isBatting : false, isBowling : true, hasBatted : true },
-                        team2 : {...state.team2, isBatting : true , isBowling : false }
-                    }
-                }
-                if(!state.team2.hasBatted && (state.team2.currentOver === state.team2.totalOver || state.team2.wickets === 10) ){
-                    return {
-                        ...state,
-                        team1 : {...state.team1, isBatting : false, isBowling : true },
-                        team2 : {...state.team2, isBatting : true , isBowling : false, hasBatted : true }
-                    }
-                }
                 return {
-                    ...state
+                    ...state,
+                    [battingTeam] : {...state[battingTeam], isBatting : false, isBowling : true, hasBatted:true},
+                    [bowlingTeam] : {...state[bowlingTeam], isBatting : true , isBowling : false }
+                }
+            case "UPDATE_WINNER_STATUS":
+                return {
+                    ...state,
+                    winnerStatus: action.status
                 }
             default:
             return state;

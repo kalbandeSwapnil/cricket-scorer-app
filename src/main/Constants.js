@@ -71,3 +71,4 @@ export const teamTwoPlayers = [
         name: "Umar Akmal"
     }
 ]
+export const TOTAL_OVERS = 1;

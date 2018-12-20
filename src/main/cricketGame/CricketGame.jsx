@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {actions} from './PlayerActions'
 import {connect} from 'react-redux';
 import  {TeamScoreContainer} from '../scoreBoard/TeamScore'
 import {OverStatusContainer} from '../overStatus/OverStatus'
@@ -11,6 +10,7 @@ class CricketGame extends Component {
     render() {
         return (
         <div className="container">
+                <b>{this.props.winnerStatus ? `Result is ${this.props.winnerStatus }`: '' } </b>
             <TeamScoreContainer />
             <OverStatusContainer />
             <PlayingBatsmanConatiner/>
@@ -22,16 +22,7 @@ class CricketGame extends Component {
 
 export const mapStateToProps = (state) => {
     return {
-            lastName: state.playerReducer.lastName
+            winnerStatus : state.teamScore.winnerStatus
           }
     }
-    
-export const  mapDispatchToProps = (dispatch) => {
-        return {
-            changeName : function() {
-                dispatch(actions.changeName())
-            }
-          }
-    }  
-
-export default connect(mapStateToProps, mapDispatchToProps)(CricketGame);
+export default connect(mapStateToProps)(CricketGame);

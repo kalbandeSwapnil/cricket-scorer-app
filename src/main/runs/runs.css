@@ -27,6 +27,11 @@ button:disabled {
     background : grey;
 }
 
+.non-clickable {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
 .dropdown {
     border : black solid 1px;
     width : 200px;

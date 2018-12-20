@@ -81,7 +81,6 @@ const computeBowlingDetails = (name, overs) => {
             }, 0)
             if(noOfWicketsInThisOver > 0) {
                 wickets += noOfWicketsInThisOver
-                console.log('here')
             }
             return wickets
         }, 0)

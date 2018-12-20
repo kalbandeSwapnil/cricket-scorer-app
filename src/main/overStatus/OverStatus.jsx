@@ -6,7 +6,6 @@ import  './OverStatus.css'
 
 export const OverStatus = (props) => {
     let overHistory = [];
-    let bowlerName;
     props.currentOver && props.currentOver.length && props.currentOver.forEach(ball => {
         let ballDescription  = ''
         if(ball['runs'] && ball['extras'].type)
@@ -24,7 +23,6 @@ export const OverStatus = (props) => {
             ballDescription = ballDescription.replace('0','');
         }
         ballDescription = ballDescription + ' '
-        bowlerName = ball['bowlerDisplayName']
         overHistory.push(ballDescription)
     });
 
@@ -35,8 +33,7 @@ export const OverStatus = (props) => {
                 <div className="over-history">{overHistory}</div>
             </div>
             <div>
-                <b className ="bowler-name"> Bowler : {props.currentOver && props.currentOver.length ?
-                    props.currentOver[0].bowlerName : ''}</b>
+                <b className ="bowler-name"> Bowler : {props.bowlingTeam.currentBowler && props.bowlingTeam.currentBowler.name}</b>
             </div>
             <div>
             </div>
@@ -53,7 +50,8 @@ OverStatus.protoTypes = {
 
 // OverStatus Container
 const mapStateToProps = (state) => {
-    const overs = state.teamScore.team1.overs
+    let battingTeam = state.teamScore.team1.isBatting ? "team1" : "team2"
+    let overs = state.teamScore[battingTeam].overs
     let newOver = overs[overs.length - 1]
     let ballsLength = newOver && newOver.length
     return {
