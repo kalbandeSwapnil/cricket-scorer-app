@@ -3,7 +3,6 @@ import {actions} from  './RunsActions'
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
-import {Out} from '../out/Out'
 import './runs.css';
 
 class Runs extends Component {
