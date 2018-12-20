@@ -27,7 +27,8 @@ export const OverStatus = (props) => {
                 <div className="over-history">{overHistory}</div>
             </div>
             <div>
-                <b className ="bowler-name"> Bowler : {props.currentOver && props.currentOver.length ? props.currentOver[0].bowlerName : ''}</b>
+                <b className ="bowler-name"> Bowler : {(props.bowlingTeam.currentBowler ? props.bowlingTeam.currentBowler.name : '' )}</b>
+
             </div>
             <div>
             </div>
@@ -49,7 +50,8 @@ const mapStateToProps = (state) => {
     let ballsLength = newOver && newOver.length
     return {
         currentOver: overs[overs.length - 1],
-        balls : ballsLength
+        balls : ballsLength,
+        bowlingTeam : state.teamScore.team1.isBowling ? state.teamScore.team1 : state.teamScore.team2
     }
 }
 

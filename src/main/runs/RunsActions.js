@@ -13,7 +13,15 @@ const recordBalls = (name, ballIndex, runs, extraType) => ({
 
 });
 
+const updateCurrentBowler = (player) => ({
+    type: "UPDATE_CURRENT_BOWLER",
+    player
+
+});
+
+
 export const actions = {
     recordRuns,
-    recordBalls
+    recordBalls,
+    updateCurrentBowler
 }
