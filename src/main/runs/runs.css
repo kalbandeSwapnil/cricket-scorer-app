@@ -24,8 +24,18 @@ button:disabled {
     font-size: 16px;
     margin: 4px 2px;
     cursor: not-allowed;
-    background : #c29e9e;
+    background : grey;
 }
+
+.dropdown {
+    border : black solid 1px;
+    width : 200px;
+    cursor: pointer;  
+}
+.Dropdown-option:hover {
+    background: grey;
+}
+
 .hidden {
     visibility: hidden
 }

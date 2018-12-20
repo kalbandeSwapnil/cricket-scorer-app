@@ -1,34 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import  './PlayingBatsman.css'
+import './PlayingBatsman.css'
 
 
 export const PlayingBatsman = (props) => {
 
-    return {
-
-    }
+    return (
+        <div className = "batsman">
+            <b> This Ball &nbsp;</b>
+            <button className= "batsman-striker">{props.battingTeam.striker.name}</button>
+            <button className= "batsman-nonStriker">{props.battingTeam.nonStriker.name}</button>
+        </div>
+    )
 
 
 }
 
-
-OverStatus.protoTypes = {
-    Balls: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
-
-
-
-// OverStatus Container
 const mapStateToProps = (state) => {
-    const overs = state.teamScore.team1.overs
-    let newOver = overs[overs.length - 1]
-    let ballsLength = newOver && newOver.length
     return {
-        currentOver: overs[overs.length - 1],
-        balls : ballsLength,
-        bowlingTeam : state.teamScore.team1.isBowling ? state.teamScore.team1 : state.teamScore.team2
+        battingTeam : state.teamScore.team1.isBatting ? state.teamScore.team1 : state.teamScore.team2
     }
 }
 
@@ -38,7 +28,6 @@ const mapDispatchToProps = (state) => {
     }
 }
 
-export const OverStatusContainer = connect(
+export const PlayingBatsmanConatiner = connect(
     mapStateToProps,
-    mapDispatchToProps
-)
+    mapDispatchToProps)(PlayingBatsman)

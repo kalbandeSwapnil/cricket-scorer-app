@@ -3,6 +3,7 @@ import {actions} from './PlayerActions'
 import {connect} from 'react-redux';
 import  {TeamScoreContainer} from '../scoreBoard/TeamScore'
 import {OverStatusContainer} from '../overStatus/OverStatus'
+import {PlayingBatsmanConatiner} from '../playingBatsman/PlayingBatsman'
 import  Runs from '../runs/Runs'
 import './CricketGame.css'
 
@@ -12,6 +13,7 @@ class CricketGame extends Component {
         <div className="container">
             <TeamScoreContainer />
             <OverStatusContainer />
+            <PlayingBatsmanConatiner/>
             <Runs/>
         </div>
         );

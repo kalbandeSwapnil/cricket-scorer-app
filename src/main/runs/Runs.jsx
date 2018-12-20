@@ -188,13 +188,6 @@ class Runs extends Component {
                 onClick = {() => {this.updateBallCount()}}>
                    Next Ball
                </button>
-              
-               <div className="button-stats">
-                    <Link to="/stats">
-                        Stats
-                    </Link>
-                </div>
-
                <button className="button-next" onClick = { () => this.setState({isDropdownVisible : true})}>
                     Change Bowler
                 </button>
@@ -204,8 +197,14 @@ class Runs extends Component {
 
                
                 <div className={this.state.isDropdownVisible ? 'dropdown' : 'hidden'}>
-                    <Dropdown className="button-number" options={bowlerOptions} onChange={this.updateCurrentBowler.bind(this)}
+                    <Dropdown className="dropdown" options={bowlerOptions} onChange={this.updateCurrentBowler.bind(this)}
                         value={''} placeholder="Select next bowler" />
+                </div>
+                <br/>
+                <div className="button-stats">
+                    <Link to="/stats">
+                        <h3>Score Card</h3>
+                    </Link>
                 </div>
            </div>
        )

@@ -18,8 +18,8 @@ let initialState = {
         isBowling : false,
         listOfPlayers: team1Players,
         currentBowler : null,
-        nonStriker : null,
-        striker : null,
+        nonStriker : team1Players[1],
+        striker : team1Players[0],
         oldBowler: null
     },
     team2: {
@@ -34,8 +34,8 @@ let initialState = {
         isBowling : true,
         listOfPlayers: team2Players,
         currentBowler : null,
-        nonStriker : null,
-        striker : null,
+        nonStriker : team2Players[1],
+        striker : team2Players[0],
         oldBowler: null
     }
 
