@@ -1,6 +1,7 @@
-export const createNewBall = (bowlerName, runs, extraType) => {
+export const createNewBall = (bowlerName, runs, extraType, batsmanName = "batsman") => {
     return {
         bowlerName : bowlerName,
+        batsmanName: batsmanName,
         runs : runs,
         isExtra : extraType === '' ? false : true,
         out : false,

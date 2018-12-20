@@ -2,52 +2,24 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import * as PlayerUtil from "../utils/playerUtils";
 
-
-const calculateBowlerStats = (overs) => {
-    // Initialize a map with bowler-name as key and nested objects asa maidenOvers, Maidens, Runs, Wickets
-    // bowlerMap[over.bowlerId] = {'Overs' : 0, 'Maiden':0, 'Run':0, 'Wickets':0};
-    let bowlerMap = []
-    // Calculate
-    console.log("%%%%%%%%%%%%%%%",overs);
-
-    overs.map(over => {
-        let bowlerName = '';
-        over.map(ball => {
-            bowlerName = ball.bowlerName;
-            if (bowlerMap.hasOwnProperty(ball.bowlerName)) {
-                console.log("****",bowlerMap);
-
-                if (ball.out) {
-                    bowlerMap[ball.bowlerName].Wickets += 1
-                }
-                bowlerMap[ball.bowlerName].Run += ball.runs;
-            } else {
-                bowlerMap[ball.bowlerName] = {'Overs': 0, 'Maiden': 0, 'Run': 0, 'Wickets': 0, 'initial': true}
-            }
-        })
-
-        // Add total overs and check if no runs have been scored then add maidens to maiden key
-        if (bowlerMap[bowlerName].initial) {
-            bowlerMap[bowlerName].initial = false
-        } else if (bowlerMap[bowlerName].Run === 0) {
-            bowlerMap[bowlerName].Maiden += 1
-        }
-        bowlerMap[bowlerName].Overs += 1
-        })
-        console.log("%%%%%%%%%%%%%%%",bowlerMap);
-
-    return bowlerMap;
-}
 
 export const BowlingScore = (props) => {
+    let bowlersList =[];
+    for(let i=0;i<props.team.listOfPlayers.length;i++){
+        if(props.team.listOfPlayers[i].bowling) {
+            let bowlerStats = PlayerUtil.computeBowlingDetails(props.team.listOfPlayers[i].name, props.team.overs)
+            bowlersList.push(bowlerStats);
+        }
+    }
+    console.log("******",bowlersList);
 
-    let bowlerStats = calculateBowlerStats(props.team.overs)
     return (
             <ReactTable
                 loading= {true}
                 showPagination = {false}
-                data={bowlerStats}
+                data={bowlersList}
                 className="-striped -highlight"
                 columns={[
                     {
