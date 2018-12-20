@@ -23,8 +23,8 @@ export const createPlayer = (name, id) => {
 export const getPlayerStats = (player, overs) => {
     const grouped = groupPlayerDetails(overs, ball => ball.bowlerName)
     return {
-        batting: computeBattingDetails(grouped, player),
-        bowling: computeBowlingDetails(player.name, overs)
+        // batting: computeBattingDetails(grouped, player),
+        bowling: computeBowlingDetails(player.playerId, overs)
     }
 }
 
@@ -94,26 +94,15 @@ const computeBowlingDetails = (name, overs) => {
             return overAllSum
         }, 0),
         wickets: overs.reduce((wickets, over) => {
-            // let wicketsInThisOver = over.reduce((sumOfWickets, ball) => {
-            //     if(ball.out) {
-            //         console.log('He took a wicket')
-            //         return sumOfWickets + 1                }
-            // }, 0)
-            // console.log(wicketsInThisOver)
-            // if(wicketsInThisOver > 0) {
-            //     wickets += wicketsInThisOver
-            //     console.log('here')
-            // }
+            let noOfWicketsInThisOver = over.reduce((sumOfWickets, ball) => {
+                if(ball.out) return sumOfWickets + 1
+                return sumOfWickets
+            }, 0)
+            if(noOfWicketsInThisOver > 0) {
+                wickets += noOfWicketsInThisOver
+                console.log('here')
+            }
             return wickets
         }, 0)
     }
 }
-
-// let player = createPlayer('Kishore', 123)
-// player.bowling = computeBowlingDetails(player.name, dummyOvers)
-// const grouped = groupBowlerDetails(dummyOvers, ball => ball.bowlerName)
-// player.batting = computeBattingDetails(grouped, player)
-// const { batting, bowling } = getPlayerStats(player, dummyOvers)
-// player.batting = batting
-// player.bowling = bowling
-// console.log(player)
