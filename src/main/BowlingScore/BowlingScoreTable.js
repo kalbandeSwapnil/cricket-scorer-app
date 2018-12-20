@@ -13,8 +13,6 @@ export const BowlingScore = (props) => {
     //     }
     // }
 
-    console.log("******",bowlersList);
-
     return (
             <ReactTable
                 loading= {true}
