@@ -114,7 +114,6 @@ export const teamScore = (state = initialState, action) => {
                 return {
                     ...state
                 }
-                break;
             default:
             return state;
     }

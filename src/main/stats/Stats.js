@@ -1,7 +1,6 @@
 import React from 'react'
 import './Stats.css'
 import  {TeamScoreContainer} from '../scoreBoard/TeamScore'
-import {TeamScore} from '../scoreBoard/TeamScore'
 import { Link } from 'react-router-dom'
 import { BowlingScoreContainer } from '../BowlingScore/BowlingScoreTable'
 import {connect} from 'react-redux';
