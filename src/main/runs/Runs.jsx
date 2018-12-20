@@ -15,14 +15,20 @@ class Runs extends Component {
             bowlerOptions : ['Brett Lee', 'Glenn McGrath', 'Shane Warne', 'Zaheer Khan', 'Anil Kumble'],
             currentBowler : null,
             oldBowler : null,
-            isDropdownVisible : false
+            isDropdownVisible : false,
+            wicket : false
         }
         this.recordRuns = this.recordRuns.bind(this)
         this.recordBalls = this.props.recordBalls.bind(this)
         this.previousActiveButton = null
         this.previousActiveExtraButton = null
     }
-
+    recordWickets(wicket) {
+        console.log("******" + wicket)
+        this.setState({
+            wicket: true
+        })
+    }
     storeRun(e) {
         this.currentSelectedButton = e.target
         if(this.previousActiveButton !== null) {
@@ -58,9 +64,9 @@ class Runs extends Component {
                 this.setState({
                     ballIndex: this.state.ballIndex + 1
                 }, () => {
-                    this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
+                    this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType,this.state.wicket);
                     this.recordRuns(this.state.currentRun)
-                    this.setState({extraType: '',})
+                    this.setState({extraType: '',wicket: false})
                     if(this.state.ballIndex === 6) {
                         this.setState({
                             oldBowler : this.state.currentBowler,
@@ -72,8 +78,9 @@ class Runs extends Component {
             }
         } else if(this.state.extraType === 'Wd' || this.state.extraType === 'Nb') {
             this.recordRuns(this.state.currentRun)
-            this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
-            this.setState({extraType: '',})
+            this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType,this.state.wicket );
+            this.setState({extraType: '',
+            wicket: false})
         }
 
         this.currentSelectedButton = null
@@ -141,9 +148,13 @@ class Runs extends Component {
                 <h1>Runs</h1>
                     {runs}
                <br></br>
-               
+
                    <h1>Extra</h1>
                     {showExtras}
+               <br></br>
+               <button key ={true} className="button-number" onClick={ this.recordWickets.bind(this)}>
+                   Out
+               </button>
                <br></br>
                <button className="button-next" disabled={this.state.currentBowler === null  || this.state.ballIndex === 6? true : false}  
                 onClick = {() => {this.updateBallCount()}}>
@@ -184,8 +195,8 @@ export const  mapDispatchToProps = (dispatch) => {
         recordRuns : function(run) {
             dispatch(actions.recordRuns(run))
         },
-        recordBalls : function(name, ballIndex, run ,extraType) {
-            dispatch(actions.recordBalls(name, ballIndex, run, extraType))
+        recordBalls : function(name, ballIndex, run ,extraType,wicket) {
+            dispatch(actions.recordBalls(name, ballIndex, run, extraType, wicket))
         }
     }
 }
