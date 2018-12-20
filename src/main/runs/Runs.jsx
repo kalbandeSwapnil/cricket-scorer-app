@@ -19,21 +19,40 @@ class Runs extends Component {
         }
         this.recordRuns = this.recordRuns.bind(this)
         this.recordBalls = this.props.recordBalls.bind(this)
+        this.previousActiveButton = null
+        this.previousActiveExtraButton = null
     }
 
-    storeRun(run) {
+    storeRun(e) {
+        this.currentSelectedButton = e.target
+        if(this.previousActiveButton !== null) {
+            this.previousActiveButton.className = 'button-number'
+        }
+        this.currentSelectedButton.className = this.currentSelectedButton.className + ' active'
+        this.previousActiveButton = e.target
         this.setState({
-            currentRun: parseInt(run.target.value)
+            currentRun: parseInt(e.target.value)
         })
     }
 
-    storeExtra(extra){
+    storeExtra(e){
+        this.currentSelectedExtraButton = e.target
+        if(this.previousActiveExtraButton !== null) {
+            this.previousActiveExtraButton.className = 'button-number'
+        }
+        this.currentSelectedExtraButton.className = this.currentSelectedExtraButton.className + ' active'
+        this.previousActiveExtraButton = e.target
+
         this.setState({
-            extraType: extra.target.value
+            extraType: e.target.value
         })
     }
 
     updateBallCount(){
+        this.previousActiveButton.className = 'button-number'
+        this.previousActiveExtraButton.className = 'button-number'
+        this.previousActiveButton = null
+        this.previousActiveExtraButton = null
         if(this.state.extraType === 'B' || this.state.extraType === 'Lb' || this.state.extraType ===''){
             if (this.state.ballIndex < 6) {
                 this.setState({
@@ -56,6 +75,9 @@ class Runs extends Component {
             this.recordBalls(this.state.currentBowler, this.state.ballIndex, this.state.currentRun, this.state.extraType);
             this.setState({extraType: '',})
         }
+
+        this.currentSelectedButton = null
+        this.currentSelectedExtraButton = null
     }
 
     recordRuns(){
@@ -106,25 +128,22 @@ class Runs extends Component {
         let runs = [];
         for(let index =0 ;index< 8; index++){
             runs.push(
-                <button key = {index} className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
+                <button key={index} className="button-number" value ={index} onClick = {this.storeRun.bind(this)}>{index}</button>
             )
         }
         let extras = ["Wd", "Nb", "B", "Lb"]
             let showExtras = extras.map(extra =>
-            <button key={extra} className = "button-number" value = { extra } onClick = { this.storeExtra.bind(this) } > { extra }</button >
+            <button key={extra} className = "button-number" value ={extra} onClick = { this.storeExtra.bind(this) } > { extra }</button >
         )
         
        return (
            <div className="runs">
                 <h1>Runs</h1>
                     {runs}
-                <br></br>
-                <h1>Extra</h1>
-                    {showExtras}
                <br></br>
-               <button className="button-number">
-                   Out
-               </button>
+               
+                   <h1>Extra</h1>
+                    {showExtras}
                <br></br>
                <button className="button-next" disabled={this.state.currentBowler === null  || this.state.ballIndex === 6? true : false}  
                 onClick = {() => {this.updateBallCount()}}>
