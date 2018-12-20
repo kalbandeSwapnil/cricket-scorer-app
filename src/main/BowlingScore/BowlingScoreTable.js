@@ -2,25 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import * as PlayerUtil from "../utils/playerUtils";
 
 
 export const BowlingScore = (props) => {
-    let bowlersList =[];
-    // for(let i=0;i<props.team.listOfPlayers.length;i++){
-    //     if(props.team.listOfPlayers[i].bowling) {
-    //         let bowlerStats = PlayerUtil.computeBowlingDetails(props.team.listOfPlayers[i].name, props.team.overs)
-    //         bowlersList.push(bowlerStats);
-    //     }
-    // }
-
-    console.log("******",bowlersList);
-
     return (
             <ReactTable
-                loading= {true}
                 showPagination = {false}
-                data={bowlersList}
+                data={props.playerList}
                 className="-striped -highlight"
+                defaultPageSize={props.playerList.length}
                 columns={[
                     {
                         Header: "Bowling Table",
@@ -34,22 +25,22 @@ export const BowlingScore = (props) => {
                             {
                                 Header: "Overs",
                                 id: "overs",
-                               // accessor: d => d[ball.bowlerName].Overs
+                               accessor: d =>  d.bowling.overs
                             },
                             {
                                 Header: "Maiden",
                                 id: "Maiden",
-                               // accessor: d => d[ball.bowlerName].Maiden
+                                accessor: d => d.bowling.maiden
                             },
                             {
                                 Header: "Run",
                                 id: "Run",
-                               // accessor: d => d[ball.bowlerName].Run
+                               accessor: d => d.bowling.runs
                             },
                             {
                                 Header: "Wickets",
                                 id: "Wickets",
-                               // accessor: d => d[ball.bowlerName].Wickets
+                               accessor: d => d.bowling.wickets
                             }
                         ]
                     }
@@ -59,9 +50,24 @@ export const BowlingScore = (props) => {
 
 
 export const mapStateToProps = (state) => {
+                let teamPlayers
+                let teamOvers
+
+                if(state.teamScore.team1.isBatting) {
+                    teamOvers = state.teamScore.team1.overs
+                    teamPlayers = state.teamScore.team2.listOfPlayers
+                } else {
+                    teamOvers = state.teamScore.team2.overs
+                    teamPlayers = state.teamScore.team1.listOfPlayers
+                }
+                let playerStats = teamPlayers.filter(player => {
+                    const { bowling } = PlayerUtil.getPlayerStats(player, teamOvers)
+                    player.bowling = bowling
+                    if(player.bowling.overs > 0) return player
+                    return false
+                })
     return {
-        team : state.teamScore.team1,
-        team2 : state.teamScore.team2
+        playerList : playerStats,
     }
 }
 
