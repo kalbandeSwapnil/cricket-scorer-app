@@ -25,7 +25,7 @@ export const BowlingScore = (props) => {
                             {
                                 Header: "Overs",
                                 id: "overs",
-                                accessor: d => d.bowling.overs
+                               accessor: d =>  d.bowling.overs
                             },
                             {
                                 Header: "Maiden",

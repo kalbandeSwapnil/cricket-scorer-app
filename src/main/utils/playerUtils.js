@@ -21,9 +21,11 @@ export const createPlayer = (name, id) => {
 
 // Function to get the batting and bowling stats of the given player
 export const getPlayerStats = (player, overs) => {
-    // const grouped = groupPlayerDetails(overs, ball => ball.bowlerName)
+    console.log(player.playerId)
+    console.log(overs)
+    const grouped = groupPlayerDetails(overs, ball => ball.bowlerName)
     return {
-        // batting: computeBattingDetails(grouped, player),
+        batting: computeBattingDetails(grouped, player),
         bowling: computeBowlingDetails(player.playerId, overs)
     }
 }
@@ -34,42 +36,43 @@ export const getPlayerStats = (player, overs) => {
 /****
  * Local methods
  */
-// const groupPlayerDetails = (overs, keyGetter) => {
-//     const dummyMap = new Map()
-//     overs.forEach(over => {
-//         over.forEach(ball => {
-//             const key = keyGetter(ball)
-//             const collection = dummyMap.get(key)
-//             if(!collection) {
-//                 dummyMap.set(key, [ball])
-//             } else {
-//                 collection.push(ball)
-//             }
-//         })
-//     })
-//     return dummyMap
-// }
+const groupPlayerDetails = (overs, keyGetter) => {
+    const dummyMap = new Map()
+    overs.forEach(over => {
+        over.forEach(ball => {
+            const key = keyGetter(ball)
+            const collection = dummyMap.get(key)
+            if(!collection) {
+                dummyMap.set(key, [ball])
+            } else {
+                collection.push(ball)
+            }
+        })
+    })
+    return dummyMap
+}
 
 
 
-// const computeBattingDetails = (grouped, player) => {
-//     return {
-//         runs: grouped.get(player.name).reduce((sum, ball) => {
-//             return sum + ball.runs
-//         }, 0),
-//         fours: grouped.get(player.name).filter(ball => {
-//             return (ball.runs === 4 && ball.extras.type === '')
-//         }).length,
-//         sixes: grouped.get(player.name).filter(ball => {
-//             return ball.runs === 6 && ball.extras.type === ''
-//         }).length,
-//         balls: grouped.get(player.name).filter(ball => {
-//             return (ball.extras.type === '' || ball.extras.type === 'Lb' || ball.extras.type === 'B')
-//         }).length
-//     }
-// }
+const computeBattingDetails = (grouped, player) => {
+    if(grouped.get(player.playerId) === undefined) return {}
+        return {
+            runs: grouped.get(player.playerId).reduce((sum, ball) => {
+                return sum + ball.runs
+            }, 0),
+            fours: grouped.get(player.playerId).filter(ball => {
+                return (ball.runs === 4 && ball.extras.type === '')
+            }).length,
+            sixes: grouped.get(player.playerId).filter(ball => {
+                return ball.runs === 6 && ball.extras.type === ''
+            }).length,
+            balls: grouped.get(player.playerId).filter(ball => {
+                return (ball.extras.type === '' || ball.extras.type === 'Lb' || ball.extras.type === 'B')
+            }).length
+        }
+}
 
-export const computeBowlingDetails = (name, overs) => {
+const computeBowlingDetails = (name, overs) => {
     return {
         overs: overs.filter((over) => {
             let updatedOver = over.filter(ball => {

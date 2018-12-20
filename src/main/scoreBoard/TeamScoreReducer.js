@@ -54,7 +54,6 @@ export const teamScore = (state = initialState, action) => {
                 [battingTeam] : {...state[battingTeam], runs: state[battingTeam].runs + action.run}
             }
         case "UPDATE_BALLS" :
-            
             let newState = state;
             let ball = createNewBall(action.name, action.runs, action.extraType,action.wicket)
             let newOverList = pushOverToOverList(ball, state.team1.overs, action.ballIndex)
@@ -84,8 +83,6 @@ export const teamScore = (state = initialState, action) => {
                     [battingTeam]: {...newState[battingTeam], wickets: newState[battingTeam].wickets+1}
                 }
             }
-
-            
             return newState;
 
             case "UPDATE_CURRENT_BOWLER" :
