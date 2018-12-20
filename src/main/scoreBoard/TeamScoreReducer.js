@@ -41,28 +41,21 @@ let initialState = {
     }
 
 }
-
+ const getNextBatsman =(team)=>{
+    return team.listOfPlayers.filter(player => player.isBattingDone === false)[0]
+ }
 
 export const teamScore = (state = initialState, action) => {
     let bowlingTeam  = state.team1.isBowling ? "team1" : "team2"
     let battingTeam  = state.team1.isBatting ? "team1" : "team2"
-    let changeStrike = action.run ? true : false
+    let changeStrike = action.runs%2 ? true : false
+
     switch(action.type) {
         case "UPDATE_RUNS" :
-            let newStateWithRuns = {
+            return {
                 ...state,
                 [battingTeam] : {...state[battingTeam], runs: state[battingTeam].runs + action.run}
             }
-
-             if(changeStrike === true){
-                return {
-                 ...newStateWithRuns,
-                     [battingTeam]: {...newStateWithRuns[battingTeam], striker: newStateWithRuns[battingTeam].nonStriker , nonStriker: newStateWithRuns[battingTeam].striker }
-                 }
-
-                        }else {
-                 return newStateWithRuns;
-             }
 
         case "UPDATE_BALLS" :
             let newState = state;
@@ -76,6 +69,7 @@ export const teamScore = (state = initialState, action) => {
                     [battingTeam]: {...state[battingTeam], currentOver: state[battingTeam].currentOver+1, currentBall : 0, overs : newOverList },
                     [bowlingTeam]: {...state[bowlingTeam], oldBowler : state[bowlingTeam].currentBowler , currentBowler :null }
                 }
+                changeStrike = true;
             }
             else if(action.extraType === 'Lb'  || action.extraType === 'B' || action.extraType ==='') {
                 newState = {
@@ -88,12 +82,21 @@ export const teamScore = (state = initialState, action) => {
                     [battingTeam]: {...state[battingTeam], overs : newOverList  }
                 }
             }
+            if(changeStrike === true){
+                newState = {
+                    ...newState,
+                    [battingTeam]: {...newState[battingTeam], striker: newState[battingTeam].nonStriker , nonStriker: newState[battingTeam].striker }
+                }
+
+            }
             if (action.wicket === true) {
+                let newBatsman = getNextBatsman(state[battingTeam]);
                 return {
                     ...newState,
-                    [battingTeam]: {...newState[battingTeam], wickets: newState[battingTeam].wickets+1}
+                    [battingTeam]: {...newState[battingTeam], wickets: newState[battingTeam].wickets+1, striker : newBatsman}
                 }
             }
+
             return newState;
 
             case "UPDATE_CURRENT_BOWLER" :
