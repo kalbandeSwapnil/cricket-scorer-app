@@ -94,4 +94,4 @@ export const teamTwoPlayers = [
         isBattingDone : false
     }
 ]
-export const TOTAL_OVERS = 3;
+export const TOTAL_OVERS = 2;
