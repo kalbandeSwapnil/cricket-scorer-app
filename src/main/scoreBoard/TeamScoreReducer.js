@@ -59,7 +59,7 @@ export const teamScore = (state = initialState, action) => {
 
         case "UPDATE_BALLS" :
             let newState = state;
-            let ball = createNewBall(action.name, action.runs, action.extraType,action.wicket,action.batsmandName,action.batsmanDisplayName,action.bowlerDisplayName)
+            let ball = createNewBall(action.name, action.runs, action.extraType,action.wicket,action.batsmanName,action.batsmanDisplayName,action.bowlerDisplayName)
             let newOverList = pushOverToOverList(ball, state[battingTeam].overs, action.ballIndex)
 
 
