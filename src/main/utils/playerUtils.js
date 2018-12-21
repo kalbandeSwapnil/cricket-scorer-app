@@ -60,7 +60,8 @@ const computeBowlingDetails = (name, overs) => {
         }).length,
         maiden: overs.filter((over) => {
             let maidenOver = over.filter(ball => {
-                return ball.totalRuns === 0
+                if(ball.bowlerName === name) return ball.totalRuns === 0
+                else return false
             })
             return maidenOver.length === 6
         }).length,
@@ -76,8 +77,12 @@ const computeBowlingDetails = (name, overs) => {
         }, 0),
         wickets: overs.reduce((wickets, over) => {
             let noOfWicketsInThisOver = over.reduce((sumOfWickets, ball) => {
-                if(ball.out) return sumOfWickets + 1
-                return sumOfWickets
+                if(ball.bowlerName === name) {
+                    if(ball.out) return sumOfWickets + 1
+                    return sumOfWickets
+                } else {
+                    return sumOfWickets
+                }
             }, 0)
             if(noOfWicketsInThisOver > 0) {
                 wickets += noOfWicketsInThisOver
