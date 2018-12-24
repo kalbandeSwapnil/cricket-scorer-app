@@ -123,7 +123,7 @@ export const mapStateToProps = (state, ownProps) => {
                     const {bowling, batting} = PlayerUtil.getPlayerStats(player, teamOvers)
                     player.bowling = bowling
                     player.batting =  batting
-                    if(player.batting.runs > 0) return player
+                    if(player.batting.balls > 0) return player
                     return false
                 })
     return {

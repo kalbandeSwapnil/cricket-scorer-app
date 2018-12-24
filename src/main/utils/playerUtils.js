@@ -37,7 +37,7 @@ const computeBattingDetails = (grouped, player) => {
         return {
             runs: grouped.get(player.playerId).reduce((sum, ball) => {
                 return sum + ball.runs
-            }, 0),
+            },0),
             fours: grouped.get(player.playerId).filter(ball => {
                 return (ball.runs === 4 && ball.extras.type === '')
             }).length,
