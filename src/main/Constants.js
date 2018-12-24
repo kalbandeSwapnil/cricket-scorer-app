@@ -1,4 +1,4 @@
-export const teamOnePlayers =  [
+    export const teamOnePlayers =  [
     {
         playerId: '1-1',
         name: "Shikhar Dhawan",
@@ -95,3 +95,6 @@ export const teamTwoPlayers = [
     }
 ]
 export const TOTAL_OVERS = 2;
+
+
+
